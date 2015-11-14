@@ -1,0 +1,491 @@
+@charset "UTF-8";
+/* line 5, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+/* line 22, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1; }
+
+/* line 24, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 26, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 28, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+/* line 30, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none; }
+/* line 103, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none; }
+
+/* line 32, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none; }
+
+/* line 116, ../../../../../../Ruby22-x64/lib/ruby/gems/2.2.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block; }
+
+/* line 1, ../components/sass/_base.scss */
+body {
+  font-family: century;
+  font-size: 2em; }
+
+/* line 6, ../components/sass/_base.scss */
+.hide {
+  display: none !important; }
+
+/* line 1, ../components/sass/_layout.scss */
+body {
+  overflow: hidden;
+  background-image: url("../images/tastatur1.jpg");
+  background-size: 150%; }
+@media screen and (max-width: 800px) {
+  /* line 1, ../components/sass/_layout.scss */
+  body {
+    background-size: 300%; } }
+
+/* line 14, ../components/sass/_layout.scss */
+.wrapper {
+  position: relative;
+  height: 100vh; }
+
+/* line 20, ../components/sass/_layout.scss */
+.header {
+  width: 100%;
+  height: 110px;
+  display: inline-block; }
+/* line 26, ../components/sass/_layout.scss */
+.header .header-logo {
+  width: 100%; }
+
+/* line 33, ../components/sass/_layout.scss */
+.page-wrapper {
+  position: relative;
+  left: 12%;
+  width: 76%;
+  top: 4%;
+  height: 92%; }
+
+/* line 43, ../components/sass/_layout.scss */
+.content-iframe {
+  width: 80vw;
+  height: 80vh;
+  margin: auto; }
+
+/* line 49, ../components/sass/_layout.scss */
+.content-termine {
+  position: absolute;
+  top: 140px;
+  left: 10%;
+  right: 10%;
+  bottom: 100px;
+  display: none; }
+
+/* line 61, ../components/sass/_layout.scss */
+.content-rotate {
+  width: 300vw;
+  position: absolute;
+  left: -100vw;
+  top: 110px;
+  bottom: 70px; }
+/* line 69, ../components/sass/_layout.scss */
+.content-rotate img {
+  width: 30%; }
+/* line 74, ../components/sass/_layout.scss */
+.content-rotate .wrapper-left {
+  width: 100vw;
+  height: 100%;
+  float: left; }
+/* line 80, ../components/sass/_layout.scss */
+.content-rotate .wrapper-middle {
+  width: 100vw;
+  height: 100%;
+  float: left;
+  /* position: relative; */ }
+/* line 87, ../components/sass/_layout.scss */
+.content-rotate .wrapper-right {
+  width: 100vw;
+  height: 100%;
+  float: left; }
+/* line 93, ../components/sass/_layout.scss */
+.content-rotate .content-left, .content-rotate .content-right, .content-rotate .content-middle {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100%; }
+
+/* line 101, ../components/sass/_layout.scss */
+.arrow-left, .arrow-right {
+  position: fixed;
+  left: 25px;
+  top: 50vh;
+  width: 65px; }
+/* line 107, ../components/sass/_layout.scss */
+.arrow-left img, .arrow-right img {
+  width: 65px; }
+
+/* line 112, ../components/sass/_layout.scss */
+.arrow-right {
+  right: 25px; }
+
+/* line 118, ../components/sass/_layout.scss */
+.navigation-bar {
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: inline-block; }
+
+/* line 2, ../components/sass/_modules.scss */
+.header {
+  color: #fff; }
+/* line 5, ../components/sass/_modules.scss */
+.header .header-logo {
+  text-align: center;
+  font-size: 2.2em; }
+/* line 10, ../components/sass/_modules.scss */
+.header .untertitel {
+  font-size: 0.3em; }
+
+/* line 17, ../components/sass/_modules.scss */
+.page-wrapper {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-align: block; }
+/* line 23, ../components/sass/_modules.scss */
+.page-wrapper p {
+  font-size: 65% !important;
+  padding: 2% 5%;
+  margin: 0; }
+/* line 28, ../components/sass/_modules.scss */
+.page-wrapper .icon {
+  float: left;
+  margin: auto;
+  width: 120px; }
+/* line 32, ../components/sass/_modules.scss */
+.page-wrapper .icon img {
+  background-color: black;
+  margin: 20px auto !important;
+  width: 50px !important;
+  width: 50px !important; }
+/* line 37, ../components/sass/_modules.scss */
+.page-wrapper .icon img:hover {
+  background-color: rgba(0, 0, 0, 0.4) !important; }
+
+/* line 46, ../components/sass/_modules.scss */
+.content-title {
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center; }
+
+/* line 52, ../components/sass/_modules.scss */
+.content-termine {
+  font-size: 0.9em;
+  color: black;
+  background: rgba(255, 255, 255, 0.6);
+  overflow-y: hidden; }
+
+/* line 59, ../components/sass/_modules.scss */
+.content-rotate {
+  font-size: 0.9em;
+  color: black;
+  overflow-y: hidden; }
+/* line 68, ../components/sass/_modules.scss */
+.content-rotate .content-left h1, .content-rotate .content-right h1, .content-rotate .content-middle h1 {
+  padding: 20px 0 15px;
+  font-size: 1em;
+  text-align: center;
+  border-bottom: solid #B33 3px; }
+/* line 75, ../components/sass/_modules.scss */
+.content-rotate .content-left div p, .content-rotate .content-right div p, .content-rotate .content-middle div p {
+  font-size: 0.7em;
+  text-align: center; }
+/* line 81, ../components/sass/_modules.scss */
+.content-rotate .content-left img, .content-rotate .content-right img, .content-rotate .content-middle img {
+  width: 35vw;
+  display: block;
+  margin: auto; }
+
+/* line 91, ../components/sass/_modules.scss */
+.arrow-left img, .arrow-right img {
+  padding: 8px;
+  border-radius: 40px;
+  transition: background 0.3s;
+  opacity: 0.3;
+  background: rgba(255, 255, 255, 0.6); }
+/* line 97, ../components/sass/_modules.scss */
+.arrow-left img:hover, .arrow-right img:hover {
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 1; }
+
+/* line 108, ../components/sass/_modules.scss */
+.navigation-bar ul {
+  list-style-type: none;
+  width: 100%;
+  height: 70px;
+  padding: 0 auto;
+  background: rgba(0, 0, 0, 0.6); }
+/* line 115, ../components/sass/_modules.scss */
+.navigation-bar ul li {
+  display: inline-block;
+  width: 17%;
+  margin: 15px 2%;
+  padding: 0 1% 10px;
+  text-align: center;
+  border-bottom: solid transparent 3px; }
+/* line 125, ../components/sass/_modules.scss */
+.navigation-bar ul li:hover {
+  border-bottom: solid #668899 3px;
+  color: #446677; }
+/* line 131, ../components/sass/_modules.scss */
+.navigation-bar ul a {
+  color: white;
+  text-decoration: none;
+  margin: 0; }
+/* line 138, ../components/sass/_modules.scss */
+.navigation-bar .active {
+  border-bottom: solid white 3px !important; }
+
+/* line 147, ../components/sass/_modules.scss */
+.calendar-applet {
+  position: relative;
+  top: 4%;
+  left: 7%;
+  padding: 2%;
+  width: 80%; }
+/* line 159, ../components/sass/_modules.scss */
+.calendar-applet .month-header {
+  position: relative;
+  padding: 5px;
+  margin-bottom: 50px;
+  font-size: 30px;
+  text-align: center;
+  border-bottom: solid #b03030 3px;
+  height: 40px; }
+/* line 171, ../components/sass/_modules.scss */
+.calendar-applet .weekend {
+  color: #921c1c; }
+/* line 174, ../components/sass/_modules.scss */
+.calendar-applet .termin {
+  border-bottom: solid #b33 3px;
+  border-radius: 10px; }
+/* line 177, ../components/sass/_modules.scss */
+.calendar-applet .termin:hover {
+  background-color: rgba(176, 48, 48, 0.3); }
+/* line 180, ../components/sass/_modules.scss */
+.calendar-applet .termin li .today {
+  background-color: #b33;
+  color: white; }
+/* line 186, ../components/sass/_modules.scss */
+.calendar-applet .today {
+  background-color: #b33;
+  color: white; }
+/* line 191, ../components/sass/_modules.scss */
+.calendar-applet .calendar-left-arrow {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 30px;
+  padding: 4px;
+  border-radius: 35px; }
+/* line 197, ../components/sass/_modules.scss */
+.calendar-applet .calendar-left-arrow img {
+  width: 30px; }
+/* line 198, ../components/sass/_modules.scss */
+.calendar-applet .calendar-left-arrow:hover {
+  background-color: white; }
+/* line 204, ../components/sass/_modules.scss */
+.calendar-applet .calendar-right-arrow {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 30px;
+  padding: 4px;
+  border-radius: 35px; }
+/* line 210, ../components/sass/_modules.scss */
+.calendar-applet .calendar-right-arrow img {
+  width: 30px; }
+/* line 211, ../components/sass/_modules.scss */
+.calendar-applet .calendar-right-arrow:hover {
+  background-color: white; }
+/* line 219, ../components/sass/_modules.scss */
+.calendar-applet .monatListe {
+  margin-left: auto; }
+/* line 224, ../components/sass/_modules.scss */
+.calendar-applet ul li {
+  display: inline;
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
+  margin: 4px;
+  font-size: 20.2px;
+  height: 32.36px;
+  border-bottom: solid transparent 3px; }
+
+/* line 237, ../components/sass/_modules.scss */
+.timeline {
+  position: relative;
+  top: 5%;
+  height: 400px;
+  width: 1000%;
+  border: solid black 2px;
+  overflow: none; }
+
+/* line 246, ../components/sass/_modules.scss */
+.calBox {
+  height: 100%; }
+
+/* line 250, ../components/sass/_modules.scss */
+.termin-box {
+  /* position: relative; */
+  /* top: $header-height;
+  left: $font-size-calendar * 14 + 50px;
+  right: 7%;
+  bottom: $footer-height; */
+  /* bottom: $footer-height;
+  left: $font-size-calendar*14 + 200px; */
+  /* width: 50%; */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* background-color: rgba(0,0,0,0.8); */
+  color: white;
+  overflow-x: hidden;
+  width: 50%;
+  height: 100%; }
+/* line 270, ../components/sass/_modules.scss */
+.termin-box ::parent {
+  overflow: hidden; }
+/* line 274, ../components/sass/_modules.scss */
+.termin-box .termin-info {
+  font-size: 60%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* width: 100%; */
+  border-radius: 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 15%; }
+
+/* line 299, ../components/sass/_modules.scss */
+.audio-wrapper {
+  position: relative;
+  display: block;
+  width: 320px;
+  height: 40%;
+  min-height: 250px;
+  margin: 50px auto;
+  background-color: black;
+  color: white;
+  border: solid #b33 2px;
+  border-radius: 4px; }
+/* line 312, ../components/sass/_modules.scss */
+.audio-wrapper .audio-title {
+  position: relative;
+  text-align: center;
+  width: 80%;
+  height: 100%;
+  margin: 2% 10%; }
+/* line 318, ../components/sass/_modules.scss */
+.audio-wrapper .audio-title .audio-track-image {
+  display: block;
+  width: 50%;
+  margin: 35px auto; }
+/* line 323, ../components/sass/_modules.scss */
+.audio-wrapper .audio-title .audio-track-image img {
+  width: 100%; }
+/* line 327, ../components/sass/_modules.scss */
+.audio-wrapper .audio-title .audio-track-name {
+  display: block;
+  left: 30%;
+  width: 70%;
+  margin: auto; }
+/* line 336, ../components/sass/_modules.scss */
+.audio-wrapper .audio-controls {
+  position: relative;
+  width: 352px;
+  display: block;
+  margin: auto;
+  color: black; }
+/* line 344, ../components/sass/_modules.scss */
+.audio-wrapper .audio-controls a {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 38px;
+  cursor: pointer; }
+/* line 345, ../components/sass/_modules.scss */
+.audio-wrapper .audio-controls a span {
+  text-align: center;
+  width: 50px;
+  height: 50px; }
+
+/* f├╝r die Tabelle */
+/* line 365, ../components/sass/_modules.scss */
+.html {
+  font-size: 50%; }
+/* line 370, ../components/sass/_modules.scss */
+.html table {
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #e6e6e6; }
+/* line 378, ../components/sass/_modules.scss */
+.html .ueberschrift {
+  font-family: Calibri;
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+  padding: 85px 10px 12px 10px;
+  border-bottom: medium #aa5555 solid; }
+/* line 379, ../components/sass/_modules.scss */
+.html .datum {
+  text-align: center; }
+/* line 380, ../components/sass/_modules.scss */
+.html .spalte3 {
+  text-align: right; }
+/* line 381, ../components/sass/_modules.scss */
+.html .vergangen {
+  color: #777777; }
+/* line 382, ../components/sass/_modules.scss */
+.html table th {
+  font-size: 120%;
+  font-weight: bold;
+  padding-top: 40px; }
+/* line 383, ../components/sass/_modules.scss */
+.html table td {
+  padding: 8px 10px 12px 10px; }
+/* line 384, ../components/sass/_modules.scss */
+.html p {
+  text-align: left; }
+/* line 385, ../components/sass/_modules.scss */
+.html .stueck {
+  font-style: italic;
+  color: #bb3333; }
+/* line 386, ../components/sass/_modules.scss */
+.html a {
+  text-decoration: none; }

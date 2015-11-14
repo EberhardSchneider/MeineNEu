@@ -1,0 +1,129 @@
+body {
+	overflow: hidden;
+
+	background-image: url("../images/tastatur1.jpg");
+	background-size: 150%;
+
+	@media screen and (max-width: 800px) {
+			background-size: 300%;
+	}
+}
+
+
+// wrapper -------------------------------------------------
+.wrapper {
+	position: relative;
+	height: 100vh;
+}
+
+// header ---------------------------------------------------
+.header {
+	width: 100%;
+	height: $header-height;
+	display: inline-block;
+
+	
+	.header-logo {
+		width: 100%;
+	}
+}
+
+// content ----------------------------------------------------
+
+.page-wrapper {
+	position: relative;
+	
+	left: 12%;
+	width: 76%;
+	top: 4%;
+	height: 92%;
+	
+}
+
+.content-iframe {
+	width: 80vw;
+	height: 80vh;
+	margin: auto;
+}
+
+.content-termine {
+	position: absolute;
+	top: $header-height + 30px;
+	left: 10%;
+	right: 10%;
+	bottom: $footer-height + 30px;
+	
+	display: none;
+
+}
+
+
+.content-rotate {
+	width: 300vw;
+	position: absolute;
+	left: -100vw;
+	top: $header-height;
+	bottom: $footer-height;
+	
+	
+	img {
+		width: 30%;
+	}
+
+	
+	.wrapper-left  {
+		width: 100vw;
+		height: 100%;
+		float: left;
+	}	
+
+	.wrapper-middle  {
+		width:100vw;
+		height: 100%;
+		float: left;
+		/* position: relative; */
+	}	
+
+	.wrapper-right  {
+		width: 100vw;
+		height: 100%;
+		float: left;
+	}	
+
+	.content-left, .content-right, .content-middle {
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 100%;
+	}
+}
+
+.arrow-left, .arrow-right {
+	position: fixed;
+	left: 25px;
+	top: 50vh;
+	width: 65px;
+
+	img {
+		width: 65px;
+	}
+}
+
+.arrow-right {
+	right: 25px;
+}
+
+
+// navigation-bar --------------------------------------------------------
+.navigation-bar {
+		
+	width: 100%;
+	height: $footer-height;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: inline-block;
+
+
+}
+

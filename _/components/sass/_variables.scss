@@ -1,0 +1,15 @@
+$font: century;
+$font-size: 2em;
+$font-size-calendar: 20px;
+$font-size-calendar-month: 30px;
+$calendar-height: 15 * $font-size-calendar + $font-size-calendar-month;
+$calendar-header-height: $font-size-calendar-month * 20;
+
+$header-height: 110px;
+$footer-height: 70px;
+
+
+$break-small: 550px;
+$break-large: 1200px;
+
+$margin-content-box: 5%;
