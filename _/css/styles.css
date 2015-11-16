@@ -46,16 +46,29 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 /* line 1, ../components/sass/_base.scss */
 body {
   font-family: century;
-  font-size: 2em; }
+  font-size: 2em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
 
-/* line 6, ../components/sass/_base.scss */
+/* line 8, ../components/sass/_base.scss */
 .hide {
   display: none !important; }
+
+/* line 12, ../components/sass/_base.scss */
+.effect-overlay {
+  position: fixed;
+  top: 110px;
+  right: 0;
+  bottom: 70px;
+  left: 0;
+  z-index: 255;
+  background-color: #e6e6e6; }
 
 /* line 1, ../components/sass/_layout.scss */
 body {
   overflow: hidden;
-  background-image: url("../images/tastatur1.jpg");
+  background-image: url("../../images/tastatur1.jpg");
   background-size: 150%; }
 @media screen and (max-width: 800px) {
   /* line 1, ../components/sass/_layout.scss */
@@ -135,7 +148,6 @@ body {
 /* line 101, ../components/sass/_layout.scss */
 .arrow-left, .arrow-right {
   position: fixed;
-  left: 25px;
   top: 50vh;
   width: 65px; }
 /* line 107, ../components/sass/_layout.scss */
@@ -143,10 +155,14 @@ body {
   width: 65px; }
 
 /* line 112, ../components/sass/_layout.scss */
-.arrow-right {
-  right: 25px; }
+.arrow-left {
+  left: 35px; }
 
-/* line 118, ../components/sass/_layout.scss */
+/* line 115, ../components/sass/_layout.scss */
+.arrow-right {
+  right: 35px; }
+
+/* line 121, ../components/sass/_layout.scss */
 .navigation-bar {
   width: 100%;
   height: 70px;
@@ -232,21 +248,21 @@ body {
   padding: 8px;
   border-radius: 40px;
   transition: background 0.3s;
-  opacity: 0.3;
+  opacity: 0.5;
   background: rgba(255, 255, 255, 0.6); }
 /* line 97, ../components/sass/_modules.scss */
 .arrow-left img:hover, .arrow-right img:hover {
   background: rgba(255, 255, 255, 0.6);
   opacity: 1; }
 
-/* line 108, ../components/sass/_modules.scss */
+/* line 110, ../components/sass/_modules.scss */
 .navigation-bar ul {
   list-style-type: none;
   width: 100%;
   height: 70px;
   padding: 0 auto;
   background: rgba(0, 0, 0, 0.6); }
-/* line 115, ../components/sass/_modules.scss */
+/* line 117, ../components/sass/_modules.scss */
 .navigation-bar ul li {
   display: inline-block;
   width: 17%;
@@ -254,27 +270,27 @@ body {
   padding: 0 1% 10px;
   text-align: center;
   border-bottom: solid transparent 3px; }
-/* line 125, ../components/sass/_modules.scss */
+/* line 127, ../components/sass/_modules.scss */
 .navigation-bar ul li:hover {
   border-bottom: solid #668899 3px;
   color: #446677; }
-/* line 131, ../components/sass/_modules.scss */
+/* line 133, ../components/sass/_modules.scss */
 .navigation-bar ul a {
   color: white;
   text-decoration: none;
   margin: 0; }
-/* line 138, ../components/sass/_modules.scss */
+/* line 140, ../components/sass/_modules.scss */
 .navigation-bar .active {
   border-bottom: solid white 3px !important; }
 
-/* line 147, ../components/sass/_modules.scss */
+/* line 149, ../components/sass/_modules.scss */
 .calendar-applet {
   position: relative;
   top: 4%;
   left: 7%;
   padding: 2%;
   width: 80%; }
-/* line 159, ../components/sass/_modules.scss */
+/* line 161, ../components/sass/_modules.scss */
 .calendar-applet .month-header {
   position: relative;
   padding: 5px;
@@ -283,25 +299,25 @@ body {
   text-align: center;
   border-bottom: solid #b03030 3px;
   height: 40px; }
-/* line 171, ../components/sass/_modules.scss */
+/* line 173, ../components/sass/_modules.scss */
 .calendar-applet .weekend {
   color: #921c1c; }
-/* line 174, ../components/sass/_modules.scss */
+/* line 176, ../components/sass/_modules.scss */
 .calendar-applet .termin {
   border-bottom: solid #b33 3px;
   border-radius: 10px; }
-/* line 177, ../components/sass/_modules.scss */
+/* line 179, ../components/sass/_modules.scss */
 .calendar-applet .termin:hover {
   background-color: rgba(176, 48, 48, 0.3); }
-/* line 180, ../components/sass/_modules.scss */
+/* line 182, ../components/sass/_modules.scss */
 .calendar-applet .termin li .today {
   background-color: #b33;
   color: white; }
-/* line 186, ../components/sass/_modules.scss */
+/* line 188, ../components/sass/_modules.scss */
 .calendar-applet .today {
   background-color: #b33;
   color: white; }
-/* line 191, ../components/sass/_modules.scss */
+/* line 193, ../components/sass/_modules.scss */
 .calendar-applet .calendar-left-arrow {
   position: absolute;
   top: 2px;
@@ -309,13 +325,13 @@ body {
   width: 30px;
   padding: 4px;
   border-radius: 35px; }
-/* line 197, ../components/sass/_modules.scss */
+/* line 199, ../components/sass/_modules.scss */
 .calendar-applet .calendar-left-arrow img {
   width: 30px; }
-/* line 198, ../components/sass/_modules.scss */
+/* line 200, ../components/sass/_modules.scss */
 .calendar-applet .calendar-left-arrow:hover {
   background-color: white; }
-/* line 204, ../components/sass/_modules.scss */
+/* line 206, ../components/sass/_modules.scss */
 .calendar-applet .calendar-right-arrow {
   position: absolute;
   top: 2px;
@@ -323,16 +339,16 @@ body {
   width: 30px;
   padding: 4px;
   border-radius: 35px; }
-/* line 210, ../components/sass/_modules.scss */
+/* line 212, ../components/sass/_modules.scss */
 .calendar-applet .calendar-right-arrow img {
   width: 30px; }
-/* line 211, ../components/sass/_modules.scss */
+/* line 213, ../components/sass/_modules.scss */
 .calendar-applet .calendar-right-arrow:hover {
   background-color: white; }
-/* line 219, ../components/sass/_modules.scss */
+/* line 221, ../components/sass/_modules.scss */
 .calendar-applet .monatListe {
   margin-left: auto; }
-/* line 224, ../components/sass/_modules.scss */
+/* line 226, ../components/sass/_modules.scss */
 .calendar-applet ul li {
   display: inline;
   text-align: center;
@@ -343,7 +359,7 @@ body {
   height: 32.36px;
   border-bottom: solid transparent 3px; }
 
-/* line 237, ../components/sass/_modules.scss */
+/* line 239, ../components/sass/_modules.scss */
 .timeline {
   position: relative;
   top: 5%;
@@ -351,12 +367,52 @@ body {
   width: 1000%;
   border: solid black 2px;
   overflow: none; }
+/* line 248, ../components/sass/_modules.scss */
+.timeline .highlight {
+  border: solid #b03030 3px !important; }
+/* line 253, ../components/sass/_modules.scss */
+.timeline .event {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  display: inline-block;
+  padding: 30px;
+  margin: 20px;
+  vertical-align: top;
+  font-size: 60%;
+  background-color: #eee;
+  border: solid transparent 3px; }
+/* line 270, ../components/sass/_modules.scss */
+.timeline .event .komponist {
+  text-align: center; }
+/* line 274, ../components/sass/_modules.scss */
+.timeline .event .title {
+  font-size: 120%;
+  text-align: center; }
+/* line 279, ../components/sass/_modules.scss */
+.timeline .event .ort {
+  border-bottom: solid #b03030 3px;
+  padding-bottom: 5px;
+  text-align: center; }
+/* line 286, ../components/sass/_modules.scss */
+.timeline .event .besetzung {
+  position: relative;
+  font-size: 80%;
+  margin: 25px 15px; }
+/* line 292, ../components/sass/_modules.scss */
+.timeline .event .datum {
+  padding-top: 5px;
+  padding-bottom: 30px;
+  text-align: center; }
+/* line 299, ../components/sass/_modules.scss */
+.timeline .event .darsteller {
+  float: right; }
 
-/* line 246, ../components/sass/_modules.scss */
+/* line 306, ../components/sass/_modules.scss */
 .calBox {
   height: 100%; }
 
-/* line 250, ../components/sass/_modules.scss */
+/* line 310, ../components/sass/_modules.scss */
 .termin-box {
   /* position: relative; */
   /* top: $header-height;
@@ -374,10 +430,10 @@ body {
   overflow-x: hidden;
   width: 50%;
   height: 100%; }
-/* line 270, ../components/sass/_modules.scss */
+/* line 330, ../components/sass/_modules.scss */
 .termin-box ::parent {
   overflow: hidden; }
-/* line 274, ../components/sass/_modules.scss */
+/* line 334, ../components/sass/_modules.scss */
 .termin-box .termin-info {
   font-size: 60%;
   position: absolute;
@@ -391,7 +447,7 @@ body {
   background-color: rgba(0, 0, 0, 0.85);
   padding: 15%; }
 
-/* line 299, ../components/sass/_modules.scss */
+/* line 359, ../components/sass/_modules.scss */
 .audio-wrapper {
   position: relative;
   display: block;
@@ -403,35 +459,35 @@ body {
   color: white;
   border: solid #b33 2px;
   border-radius: 4px; }
-/* line 312, ../components/sass/_modules.scss */
+/* line 372, ../components/sass/_modules.scss */
 .audio-wrapper .audio-title {
   position: relative;
   text-align: center;
   width: 80%;
   height: 100%;
   margin: 2% 10%; }
-/* line 318, ../components/sass/_modules.scss */
+/* line 378, ../components/sass/_modules.scss */
 .audio-wrapper .audio-title .audio-track-image {
   display: block;
   width: 50%;
   margin: 35px auto; }
-/* line 323, ../components/sass/_modules.scss */
+/* line 383, ../components/sass/_modules.scss */
 .audio-wrapper .audio-title .audio-track-image img {
   width: 100%; }
-/* line 327, ../components/sass/_modules.scss */
+/* line 387, ../components/sass/_modules.scss */
 .audio-wrapper .audio-title .audio-track-name {
   display: block;
   left: 30%;
   width: 70%;
   margin: auto; }
-/* line 336, ../components/sass/_modules.scss */
+/* line 396, ../components/sass/_modules.scss */
 .audio-wrapper .audio-controls {
   position: relative;
   width: 352px;
   display: block;
   margin: auto;
   color: black; }
-/* line 344, ../components/sass/_modules.scss */
+/* line 404, ../components/sass/_modules.scss */
 .audio-wrapper .audio-controls a {
   width: 50px;
   height: 50px;
@@ -439,22 +495,22 @@ body {
   vertical-align: middle;
   margin-right: 38px;
   cursor: pointer; }
-/* line 345, ../components/sass/_modules.scss */
+/* line 405, ../components/sass/_modules.scss */
 .audio-wrapper .audio-controls a span {
   text-align: center;
   width: 50px;
   height: 50px; }
 
 /* f├╝r die Tabelle */
-/* line 365, ../components/sass/_modules.scss */
+/* line 425, ../components/sass/_modules.scss */
 .html {
   font-size: 50%; }
-/* line 370, ../components/sass/_modules.scss */
+/* line 430, ../components/sass/_modules.scss */
 .html table {
   margin: 40px auto;
   padding: 30px;
   background-color: #e6e6e6; }
-/* line 378, ../components/sass/_modules.scss */
+/* line 438, ../components/sass/_modules.scss */
 .html .ueberschrift {
   font-family: Calibri;
   font-size: 150%;
@@ -462,30 +518,30 @@ body {
   text-align: center;
   padding: 85px 10px 12px 10px;
   border-bottom: medium #aa5555 solid; }
-/* line 379, ../components/sass/_modules.scss */
+/* line 439, ../components/sass/_modules.scss */
 .html .datum {
   text-align: center; }
-/* line 380, ../components/sass/_modules.scss */
+/* line 440, ../components/sass/_modules.scss */
 .html .spalte3 {
   text-align: right; }
-/* line 381, ../components/sass/_modules.scss */
+/* line 441, ../components/sass/_modules.scss */
 .html .vergangen {
   color: #777777; }
-/* line 382, ../components/sass/_modules.scss */
+/* line 442, ../components/sass/_modules.scss */
 .html table th {
   font-size: 120%;
   font-weight: bold;
   padding-top: 40px; }
-/* line 383, ../components/sass/_modules.scss */
+/* line 443, ../components/sass/_modules.scss */
 .html table td {
   padding: 8px 10px 12px 10px; }
-/* line 384, ../components/sass/_modules.scss */
+/* line 444, ../components/sass/_modules.scss */
 .html p {
   text-align: left; }
-/* line 385, ../components/sass/_modules.scss */
+/* line 445, ../components/sass/_modules.scss */
 .html .stueck {
   font-style: italic;
   color: #bb3333; }
-/* line 386, ../components/sass/_modules.scss */
+/* line 446, ../components/sass/_modules.scss */
 .html a {
   text-decoration: none; }

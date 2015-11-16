@@ -20,6 +20,8 @@ var a;
 // Calendar App
 var cal;
 
+// Timeline
+var timeline;
 
 
 var audioCtx;
@@ -39,15 +41,60 @@ var audioCtx;
 
 
 $(function() {
-	
-	//* Caroussel App */
-	c = new Caroussel( 'include/content.xml',
+
+	var loadCount = 0;
+
+	function loader() {
+		
+		timeline = new Timeline( $('.arrow-left'), $('arrow-right'), 'include/events.json', ".timeline" );
+		timeline.setInitCallback( loadHandler );
+		timeline.init();
+		
+		
+			//* Caroussel App */
+		c = new Caroussel( 'include/content.xml',
 						0,
 						$('.arrow-left'),
 						$('.arrow-right')
 						);
+		c.init();
+		c.setInitCallback( loadHandler );
+
+		c.setMenuItems( [ 'home', 'termine', 'media', 'kontakt' ] );
+
+
+	}
+
+	function loadHandler() {
+
+
+		loadCount++;
+		console.log( loadCount );
+
+		if (loadCount == 2 ) {
+			//* geladen!
+			//* Anzeige starten */
+			changeMenuTo( 0 );
+
+			/* Navigation verdrahten */
+			wireNavigation();
+
+			$(".effect-overlay").stop().fadeOut( 1000 );
+		}
+	};
+
 	
-	c.setMenuItems( [ 'home', 'termine', 'media', 'kontakt' ] );
+
+	// Ladebildschirm
+	$(".effect-overlay").stop().fadeIn( 0 );
+
+	loader();
+
+	
+	
+	
+	
+	
 
 	//* Audio Context */
 	if (window.AudioContext || window.webkitAudioContext) { 
@@ -60,8 +107,7 @@ $(function() {
 	//* Calendar App */
 	cal = new Calendar();
 	
-	//* Agenda noch kein Constructor, nur Objekt...  TODO */
-	Agenda.init();
+	
 
 
 
@@ -85,14 +131,7 @@ $(function() {
 
 	a.getAudio();
 
-	//* Anzeige starten */
-	changeMenuTo( 0 );
-
-
 	
-
-	/* Navigation verdrahten */
-	wireNavigation();
 	
 	
 });
@@ -107,7 +146,11 @@ function wireNavigation() {
 	$('.navbar-termine').click(function() {
 			$('.active').removeClass('active');
 			$(this).parent().addClass("active");
+
+			c.setReadyFunction( function() { timeline.activate } );
 			changeMenuTo( 1 );
+		
+			timeline.activate();
 	});
 	$('.navbar-media').click(function() {
 			$('.active').removeClass('active');
@@ -127,6 +170,6 @@ function wireNavigation() {
 function changeMenuTo( newActiveMenu ) {
 	
 	$(".effect-overlay").stop().fadeIn( 0 ).delay( 100 ).fadeOut( 1000 );
-	c.updateHTML( c.getMenuItems()[newActiveMenu] );
+	c.updateHTML( newActiveMenu );
 	
 }

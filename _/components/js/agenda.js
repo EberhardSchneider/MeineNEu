@@ -70,11 +70,15 @@ var Agenda = {
 					besetzung += "<div class='zeile'><span class='rolle'>"+ rolle +":</span><span class='darsteller'>"+ darsteller +"</span></div>";
 				});
 
+				var date = new Date( elem.datum);
+				var formatedDate = date.toLocaleDateString();
+				var formatedTime = date.toLocaleTimeString( navigator.language, {hour: '2-digit', minute: '2-digit' });
+				formatedTime = formatedTime.replace(':','h');
 				html += '<div class="event">
 							<div class="komponist">' + elem.komponist + '</div>
 							<div class="title">'+ elem.title +'</div>
 							<div class="ort">'+ elem.ort +'</div>
-							<div class="datum">'+ elem.datum +'</div>
+							<div class="datum">' + formatedDate + ' ' + formatedTime + '</div>
 							<div class="besetzung">'+ besetzung +'</div>
 						</div>';
 				});		// each

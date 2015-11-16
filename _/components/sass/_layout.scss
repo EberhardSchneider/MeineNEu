@@ -1,7 +1,7 @@
 body {
 	overflow: hidden;
 
-	background-image: url("../images/tastatur1.jpg");
+	background-image: url("../../images/tastatur1.jpg");
 	background-size: 150%;
 
 	@media screen and (max-width: 800px) {
@@ -100,7 +100,7 @@ body {
 
 .arrow-left, .arrow-right {
 	position: fixed;
-	left: 25px;
+
 	top: 50vh;
 	width: 65px;
 
@@ -109,8 +109,11 @@ body {
 	}
 }
 
+.arrow-left {
+	left: 35px;
+}
 .arrow-right {
-	right: 25px;
+	right: 35px;
 }
 
 
@@ -123,7 +126,6 @@ body {
 	left: 0;
 	bottom: 0;
 	display: inline-block;
-
 
 }
 

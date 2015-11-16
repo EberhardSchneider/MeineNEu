@@ -7,6 +7,9 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		
 		uglify: {
+			options: {
+				beautify: true
+			}, // options
 			my_target: {
 				files: {
 					'_/js/script.js': ['_/components/js/*.js']

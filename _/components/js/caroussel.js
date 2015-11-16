@@ -2,6 +2,9 @@ var Caroussel = (function() {
 	function Caroussel( ContentFile, MenuItemTagName, $leftItem, $rightItem ) {
 		var self = this;
 
+		/* kompletter Content im Array */
+		this.content = [];
+
 		//* Array zum Speichern der Pages */
 		this.HTMLPages = [];
 
@@ -17,6 +20,9 @@ var Caroussel = (function() {
 
 		//* wird gerade rotiert? */
 		this.isRotating = false;
+
+		//* click/rotation events unbound ? */
+		this.rotationUnbound = false;
 
 		//* Name des XML Files */
 		this.XMLFileName = ContentFile;
@@ -37,9 +43,24 @@ var Caroussel = (function() {
 		//* wird aufgerufen sobald HTML upgedatet */
 		this.HTMLReady = function() {
 		};
+
+		//* wird aufgerufen, sobald XML geparst ist
+		this.initCallback = function() {
+
+		};
 	}
 
-	
+	//* Getter & Setter ------------------------------------------------------------------------------------------
+
+
+	/* Setter für initCallback */
+	Caroussel.prototype.setInitCallback = function( func ) {
+		var self = this;
+		if ( typeof func === "function" ) {
+			self.initCallback = func;
+		}
+		// body...
+	};
 	//* Setter für HTMLReady function / wird gefeuert sobald HTML komplett aufgebaut ist */
 	Caroussel.prototype.setReadyFunction = function( func ) {
 		this.HTMLReady = func;
@@ -60,13 +81,64 @@ var Caroussel = (function() {
 		return this.activeMenuName;
 	};
 
+
+	Caroussel.prototype.init = function() {
+
+		var self = this;
+
+			/* Array Content befüllen */
+			$.ajax({
+				url: 'include/content.xml',
+				type: 'GET',
+				datatype: 'xml',
+
+				success: function (data) {
+					
+				
+					self.parseXML( $(data) );
+					self.HTMLPages = self.content[0];
+
+
+					self.initCallback();
+				} // success
+
+				
+			}); // ajax
+
+	}; // init
+
+	
+
+
 	
 	/** HTML aus XML erzeugen und anzeigen */
-	Caroussel.prototype.updateHTML = function( menuItemTagName ) {
+	Caroussel.prototype.updateHTML = function( newActiveMenu ) {
+		var self = this;
 
-		//* HTML aus XMLFile erzeugen und anzeigen */
-		this.getContentXML( this.XMLFileName, menuItemTagName );
 
+		self.HTMLPages = self.content[ newActiveMenu ];
+		
+		self.numberOfContentBoxes = self.HTMLPages.length;
+
+		/* tricksen, falls es nur zwei Seiten gibt */
+		if ( self.numberOfContentBoxes == 2 ) {
+			self.HTMLPages[2] = this.HTMLPages[0];
+		}
+
+		
+		/** und anzeigen */
+		self.loadPages();
+		self.HTMLReady();
+	
+
+	};
+
+	//* unbind leftItem, rightItem, if used otherwise */
+	Caroussel.prototype.unbindRotation = function() {
+		var self = this;
+
+		$(self.leftItem).off();
+		$(self.rightItem).off();
 	};
 
 	
@@ -77,7 +149,7 @@ var Caroussel = (function() {
 
 			self.HTMLPages = [];
 
-			/* Array HTMLPages befüllen */
+			/* Array Content befüllen */
 			$.ajax({
 				url: 'include/content.xml',
 				type: 'GET',
@@ -112,12 +184,13 @@ var Caroussel = (function() {
 
 	
 	/** Pfeil-Icons verdrahten */
-	Caroussel.prototype.wireRotation = function( $leftItem, $rightItem ) {
+	Caroussel.prototype.wireRotation = function(  ) {
 		
 		var self = this;
 
+
 		//* evtl. Pfeile verstecken */
-		if ( self.numberOfContentBoxes == 1 ) {
+		if ( (self.numberOfContentBoxes == 1) && (self.getNameOfActiveMenu() != "termine") ) {
 			$('.arrow-right').addClass('hide');
 			$('.arrow-left').addClass('hide');
 		}
@@ -128,8 +201,10 @@ var Caroussel = (function() {
 			$('.arrow-left').removeClass('hide');
 
 			/* linke/rechte Rotation verdrahten */
-			$leftItem.click( function() { self.leftRotation($leftItem); } );
-			$rightItem.click( function() { self.rightRotation($rightItem); } );
+			
+			$(self.leftItem).on( "click", function() { self.leftRotation(); } );
+			$(self.rightItem).on( "click", function() { self.rightRotation(); } );
+		
 		}
 
 	};
@@ -178,13 +253,13 @@ var Caroussel = (function() {
 
 	
 	/** Linksdrehung animieren */
-	Caroussel.prototype.leftRotation = function( $leftItem ) {
+	Caroussel.prototype.leftRotation = function() {
 
 			var self = this;
-			
+				
 			if (! self.isRotating ) {  /* nur wenn nicht gerade schon rotiert wird */
 				
-				$leftItem.fadeOut(0).fadeIn(250); /* Effekt */
+				$(self.leftItem).fadeOut(0).fadeIn(250); /* Effekt */
 				self.isRotating = true;
 				
 				/* und die JQuery Anmimation */
@@ -204,13 +279,13 @@ var Caroussel = (function() {
 
 	
 	/** Rechtsdrehung animieren */
-	Caroussel.prototype.rightRotation = function($rightItem) {
+	Caroussel.prototype.rightRotation = function() {
 
 			var self = this;
 			
 			if (! self.isRotating ) {  /* nur wenn nicht gerade schon rotiert wird */
 				
-				$rightItem.fadeOut(0).fadeIn(250); /* Effekt */
+				$(self.rightItem).fadeOut(0).fadeIn(250); /* Effekt */
 				self.isRotating = true;
 				
 				/* und die JQuery Anmimation */
@@ -225,14 +300,17 @@ var Caroussel = (function() {
 					}
 				); // animate
 			} // if
-
 	};
 
+
 	
+
 	/** HTML aus Array auf Website anzeigen */
 	Caroussel.prototype.loadPages = function () {
 		
 		var self = this;
+
+		
 
 		/* nur eine Seite */
 		if (self.HTMLPages.length == 1) { 
@@ -262,67 +340,74 @@ var Caroussel = (function() {
 	/* XML Daten in HTML umwandeln */
 	/** TODO alles auslagern in eigene Library */
 	
-	Caroussel.prototype.parseXML = function ( $xmlData, menuItemTagName ) {
+	Caroussel.prototype.parseXML = function ( $xmlData ) {
 
-		/* Menunamen speichern */
-		this.activeMenuName = menuItemTagName;
+	  var self = this;
 
 		/* zum Speichern für die Rückgabe */
-		pages = [];
 		
+		var completeContent = [];
 
-		/* XML File unterhalb des Menüpunktes durchlaufen */
-		/* Erst die einzelnen Seiten */
-		$xmlData.find( menuItemTagName ).children().each( function (pageIndex) {
+		/* Alle Menüpunkte im XML File durchlaufen */
+		
+		$xmlData.find( "content" ).children().each( function( menuIndex, elem ) {
 
-					var currentHTMLObject;
+			pages = [];
 
-					
-					HTMLPage = HLP.createHTML('div', '', 'page-wrapper'); /* Page_Wrapper */
+			/* Erst die einzelnen Seiten */
+			$(elem).children().each( function (pageIndex) {
 
-					/* dann die Unterpunkte auf den Seiten  */
-					$(this).children().each( function( subIndex ) {
+						var currentHTMLObject;
 
-					
-						$obj = $(this);
-						tag = $obj.prop('tagName');
-						text = $obj.text();
-
-						switch (tag) {
-							case 'div': 		currentHTMLObject = HLP.createHTML('div', text);
-												break;
-							case 'p': 			currentHTMLObject = HLP.createHTML('p', text);
-												break;
-							case 'title': 		currentHTMLObject = HLP.createHTML('h1', text);
-												break;
-							case 'image': 		currentHTMLObject = document.createElement('img');
-												currentHTMLObject.src =  $obj.attr('src');
-												break;
-							case 'calendar': 	currentHTMLObject = document.createElement('div');
-												currentHTMLObject.className = "calendar-applet";
-											
-												break;
-							case 'timeline': 		currentHTMLObject = HLP.createHTML( 'div', '', 'timeline' );
-												break;
-												
-							case 'audioplayer': currentHTMLObject = a.getPlayerHTML();
-												break;
-							case 'HTML': 		currentHTMLObject = HLP.createDIV( 'html', '' );
-												currentHTMLObject.innerHTML = text;
-
-
-												break;						
-						}     //* switch */
-
-					
 						
-						HTMLPage.appendChild( currentHTMLObject );
-					}); /* each */	
-					pages.push( HTMLPage );
-				}); /* each */
+						HTMLPage = HLP.createHTML('div', '', 'page-wrapper'); /* Page_Wrapper */
 
-					
-				return pages;
+						/* dann die Unterpunkte auf den Seiten  */
+						$(this).children().each( function( subIndex ) {
+
+						
+							$obj = $(this);
+							tag = $obj.prop('tagName');
+							text = $obj.text();
+
+							switch (tag) {
+								case 'div': 		currentHTMLObject = HLP.createHTML('div', text);
+													break;
+								case 'p': 			currentHTMLObject = HLP.createHTML('p', text);
+													break;
+								case 'title': 		currentHTMLObject = HLP.createHTML('h1', text);
+													break;
+								case 'image': 		currentHTMLObject = document.createElement('img');
+													currentHTMLObject.src =  $obj.attr('src');
+													break;
+								case 'calendar': 	currentHTMLObject = document.createElement('div');
+													currentHTMLObject.className = "calendar-applet";
+												
+													break;
+								case 'timeline': 		currentHTMLObject = HLP.createHTML( 'div', '', 'timeline' );
+													break;
+													
+								case 'audioplayer': currentHTMLObject = a.getPlayerHTML();
+													break;
+								case 'HTML': 		currentHTMLObject = HLP.createDIV( 'html', '' );
+													currentHTMLObject.innerHTML = text;
+
+
+													break;						
+							}     //* switch */
+
+						
+							
+							HTMLPage.appendChild( currentHTMLObject );
+						}); /* each */	
+						pages.push( HTMLPage );
+					}); /* each Pages*/
+
+					completeContent.push(pages);
+				});  /* MenuItems */
+				self.content = completeContent;
+				console.log("content fertig");
+
 	};
 
 	

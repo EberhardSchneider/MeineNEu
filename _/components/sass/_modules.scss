@@ -89,10 +89,10 @@
 
 .arrow-left, .arrow-right {
 	img {
-			padding: 8px;
+		padding: 8px;
 		border-radius: 40px;
 		transition: background 0.3s;
-		opacity: 0.3;
+		opacity: 0.5;
 		background: rgba( 256, 256, 256, 0.6);
 		&:hover {
 			background: rgba( 256, 256, 256, 0.6);
@@ -100,6 +100,8 @@
 		}
 	}
 } // arrow-left, -right
+
+
 
 
 // navigation-bar ----------------------------------------------------------------------
@@ -241,6 +243,64 @@
 	width: 1000%;
 	border: solid black 2px;
 	overflow: none;
+
+
+	.highlight {
+			border: solid rgba(176, 48, 48, 1) 3px !important;
+		}
+
+
+	.event {
+		position: relative;
+		width: 220px;
+		height: 300px;
+		display: inline-block;
+		padding: 30px;
+		margin: 20px;
+
+		vertical-align: top;
+
+		font-size: 60%;
+		
+		background-color: #eee;
+		border: solid rgba(0,0,0,0) 3px;
+
+		
+
+		.komponist {
+			text-align: center;
+		}
+
+		.title {
+			font-size: 120%;
+			text-align: center;
+		}
+
+		.ort {
+			border-bottom: solid rgba(176, 48, 48, 1) 3px;
+			padding-bottom: 5px;
+			text-align: center;
+		}
+
+		
+		.besetzung {
+			position: relative;
+			font-size: 80%;
+			margin: 25px 15px;
+		}
+
+		.datum {
+			padding-top: 5px;
+			padding-bottom: 30px;
+			text-align: center;
+		}
+
+		
+		.darsteller {
+			float: right;
+			
+		}
+	}
 }
 
 .calBox {

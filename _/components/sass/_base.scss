@@ -1,8 +1,21 @@
 body {
 	font-family: $font;
 	font-size: $font-size;
+
+	@include box-sizing(border-box);
 }
 
 .hide {
 	display: none !important;
 }
+
+.effect-overlay {
+	position: fixed;
+	top: $header-height;
+	right: 0;
+	bottom: $footer-height;
+	left: 0;
+	z-index: 255;
+	 background-color: rgba( 230,230,230, 1);
+
+} 
