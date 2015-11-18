@@ -21,9 +21,10 @@
 	overflow-x: hidden;
 	text-align: block;
 	p { 
-		font-size: 65% !important;
-		padding: 2% 5%;
+		font-size: 55% !important;
+		padding: 2% 15%;
 		margin: 0;
+
 	}
 	.icon {
 		float: left;
@@ -116,7 +117,7 @@
 	
 		li {
 			display: inline-block;
-			width: 17%;
+			width: 13%;
 			margin: 15px 2%;
 			padding: 0 1% 10px;
 			
@@ -140,6 +141,7 @@
 	.active {
 			border-bottom: solid white 3px !important;
 	}
+
 
 } // navigation-bar
 
@@ -239,16 +241,18 @@
 .timeline {
 	position: relative;
 	top: 5%;
-	height: 400px;
+	height: 450px;
 	width: 1000%;
-	border: solid black 2px;
+	background: rgba( 0,0,0,0.1 );
 	overflow: none;
 
 
 	.highlight {
 			border: solid rgba(176, 48, 48, 1) 3px !important;
 		}
-
+	.faded {
+		opacity: 0.7;
+	}
 
 	.event {
 		position: relative;
@@ -445,3 +449,7 @@
 	.stueck { font-style:italic; color:#bb3333; }
 	a { text-decoration: none;}
 }
+
+
+.stueck { font-style:italic; color:#bb3333; }
+	a { text-decoration: none;}

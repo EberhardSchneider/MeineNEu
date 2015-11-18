@@ -70,20 +70,20 @@ function zeigeTermin(a) {
 
 function wireNavigation() {
     $(".navbar-home").click(function() {
-        $(".active").removeClass("active"), $(this).parent().addClass("active"), changeMenuTo(0);
+        changeMenuTo(0);
+    }), $(".navbar-vita").click(function() {
+        changeMenuTo(1);
     }), $(".navbar-termine").click(function() {
-        $(".active").removeClass("active"), $(this).parent().addClass("active"), c.setReadyFunction(function() {
-            timeline.activate;
-        }), changeMenuTo(1), timeline.activate();
+        changeMenuTo(2);
     }), $(".navbar-media").click(function() {
-        $(".active").removeClass("active"), $(this).parent().addClass("active"), changeMenuTo(2);
+        changeMenuTo(3);
     }), $(".navbar-kontakt").click(function() {
-        $(".active").removeClass("active"), $(this).parent().addClass("active"), changeMenuTo(3);
+        changeMenuTo(4);
     });
 }
 
 function changeMenuTo(a) {
-    $(".effect-overlay").stop().fadeIn(0).delay(100).fadeOut(1e3), c.updateHTML(a);
+    c.scrollTo(a);
 }
 
 function projekteAusgeben() {
@@ -196,7 +196,7 @@ var Agenda = {
             src: [],
             image: ""
         }, this.trackList = [], this.audioData = [], this.currentTrack = 0, this.playingPosition = 0, 
-        this.isPlaying = !1, this.isAudioReady = !1, this.soundNode, "" === audioCtx ? this.isIE = !0 : this.isIE = !1;
+        this.isPlaying = !1, this.isAudioReady = !1, this.soundNode = null, "" === audioCtx ? this.isIE = !0 : this.isIE = !1;
     }
     return a.prototype.play = function() {
         this.isPlaying || (this.soundNode = audioCtx.createBufferSource(), this.soundNode.buffer = this.audioData[this.currentTrack], 
@@ -338,18 +338,23 @@ var Agenda = {
         l.className = "monatListe", c.appendChild(l), $(".calendar-applet").empty().append(c);
     }, a;
 }(), Caroussel = function() {
-    function b(a, b, c, d) {
-        this.content = [], this.HTMLPages = [], this.activeContentId = 0, this.numberOfContentBoxes = 0, 
-        this.rotationDelay = 400, this.rotationDuration = 500, this.isRotating = !1, this.rotationUnbound = !1, 
-        this.XMLFileName = a, this.leftItem = c.get(), this.rightItem = d.get(), this.menuItems = "", 
+    function b(a, b, c) {
+        this.HTMLPages = [], this.activeContentId = 0, this.numberOfContentBoxes = 0, this.rotationDelay = 200, 
+        this.rotationDuration = 400, this.isRotating = !1, this.scrollTarget = -1, this.rotationUnbound = !0, 
+        this.XMLFileName = a, this.leftItem = b.get(), this.rightItem = c.get(), this.menuItems = "", 
         this.activeMenuName = "", this.wireRotation($(this.leftItem), $(this.rightItem)), 
-        this.HTMLReady = function() {}, this.initCallback = function() {};
+        this.HTMLReady = function() {}, this.initCallback = function() {}, this.scrollCallback = [];
     }
-    return b.prototype.setInitCallback = function(a) {
+    return b.prototype.setScrollCallback = function(a, b) {
+        var c = this;
+        "function" == typeof b && (c.scrollCallback[a] = b);
+    }, b.prototype.setInitCallback = function(a) {
         var b = this;
         "function" == typeof a && (b.initCallback = a);
     }, b.prototype.setReadyFunction = function(a) {
         this.HTMLReady = a;
+    }, b.prototype.clearReadyFunction = function() {
+        this.HTMLReady = function() {};
     }, b.prototype.setMenuItems = function(a) {
         this.menuItems = a;
     }, b.prototype.getMenuItems = function() {
@@ -363,16 +368,18 @@ var Agenda = {
             type: "GET",
             datatype: "xml",
             success: function(b) {
-                a.parseXML($(b)), a.HTMLPages = a.content[0], a.initCallback();
+                a.parseXML($(b));
+                for (var c = 0; c < a.HTMLPages.length; c++) null == a.scrollCallback[c] && (a.scrollCallback[c] = function() {});
+                a.loadPages(), a.initCallback();
             }
         });
-    }, b.prototype.updateHTML = function(a) {
-        var b = this;
-        b.HTMLPages = b.content[a], b.numberOfContentBoxes = b.HTMLPages.length, 2 == b.numberOfContentBoxes && (b.HTMLPages[2] = this.HTMLPages[0]), 
-        b.loadPages(), b.HTMLReady();
-    }, b.prototype.unbindRotation = function() {
+    }, b.prototype.showUnbindArrows = function() {
         var a = this;
-        $(a.leftItem).off(), $(a.rightItem).off();
+        $(a.leftItem).removeClass("hide"), $(a.rightItem).removeClass("hide"), $(a.leftItem).off(), 
+        $(a.rightItem).off(), a.rotationUnbound = !0;
+    }, b.prototype.hideBindArrows = function() {}, b.prototype.updateHTML = function(a) {
+        var b = this;
+        b.loadPages(), b.HTMLReady();
     }, b.prototype.getContentXML = function(a, b) {
         var c = this;
         c.HTMLPages = [], $.ajax({
@@ -387,25 +394,35 @@ var Agenda = {
         });
     }, b.prototype.wireRotation = function() {
         var a = this;
-        1 == a.numberOfContentBoxes && "termine" != a.getNameOfActiveMenu() ? ($(".arrow-right").addClass("hide"), 
-        $(".arrow-left").addClass("hide")) : ($(".arrow-right").removeClass("hide"), $(".arrow-left").removeClass("hide"), 
-        $(a.leftItem).on("click", function() {
-            a.leftRotation();
+        1 == a.numberOfContentBoxes ? ($(a.rightItem).addClass("hide"), $(a.leftItem).addClass("hide")) : ($(a.rightItem).removeClass("hide"), 
+        $(a.leftItem).removeClass("hide"), a.rotationUnbound && ($(a.leftItem).off("click"), 
+        $(a.rightItem).off("click"), $(a.leftItem).click(function() {
+            var b = 0 == a.activeContentId ? a.HTMLPages.length - 1 : a.activeContentId - 1;
+            a.scrollTo(b);
         }), $(a.rightItem).on("click", function() {
-            a.rightRotation();
-        }));
+            var b = a.activeContentId == a.HTMLPages.length - 1 ? 0 : a.activeContentId + 1;
+            a.scrollTo(b);
+        }), a.rotationUnbound = !1));
     }, b.prototype.adjustLeftRotation = function() {
         var a = this;
+        $(".navigation-bar ul").children().eq(a.activeContentId).removeClass("active"), 
         a.activeContentId--, a.activeContentId < 0 && (a.activeContentId = a.numberOfContentBoxes - 1), 
-        $(".content-middle").empty().append(a.HTMLPages[a.activeContentId]), $(".content-rotate").css("left", "-100%");
+        $(".navigation-bar ul").children().eq(a.activeContentId).addClass("active"), $(".content-middle").empty().append(a.HTMLPages[a.activeContentId]), 
+        $(".content-rotate").css("left", "-100%");
         var b = a.activeContentId == a.numberOfContentBoxes - 1 ? 0 : a.activeContentId + 1, c = 0 === a.activeContentId ? a.numberOfContentBoxes - 1 : a.activeContentId - 1;
-        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]);
+        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]), 
+        a.scrollTarget != a.activeContentId ? a.leftRotation() : (console.log("Rufe auf Nr." + a.activeContentId), 
+        a.scrollCallback[a.activeContentId]());
     }, b.prototype.adjustRightRotation = function() {
         var a = this;
+        $(".navigation-bar ul").children().eq(a.activeContentId).removeClass("active"), 
         a.activeContentId++, a.activeContentId > a.numberOfContentBoxes - 1 && (a.activeContentId = 0), 
-        $(".content-middle").empty().append(a.HTMLPages[a.activeContentId]), $(".content-rotate").css("left", "-100%");
+        $(".navigation-bar ul").children().eq(a.activeContentId).addClass("active"), $(".content-middle").empty().append(a.HTMLPages[a.activeContentId]), 
+        $(".content-rotate").css("left", "-100%");
         var b = a.activeContentId == a.numberOfContentBoxes - 1 ? 0 : a.activeContentId + 1, c = 0 === a.activeContentId ? a.numberOfContentBoxes - 1 : a.activeContentId - 1;
-        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]);
+        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]), 
+        a.scrollTarget != a.activeContentId ? a.rightRotation() : (console.log("Rufe auf Nr." + a.activeContentId), 
+        a.scrollCallback[a.activeContentId]());
     }, b.prototype.leftRotation = function() {
         var a = this;
         a.isRotating || ($(a.leftItem).fadeOut(0).fadeIn(250), a.isRotating = !0, $(".content-rotate").delay(a.rotationDelay).animate({
@@ -420,73 +437,75 @@ var Agenda = {
         }, a.rotationDuration, "swing", function() {
             a.isRotating = !1, a.adjustRightRotation();
         }));
+    }, b.prototype.scrollTo = function(a) {
+        var b = this;
+        b.scrollTarget = a, b.scrollTarget > b.activeContentId ? b.scrollTarget - b.activeContentId < 3 ? b.rightRotation() : b.leftRotation() : b.scrollTarget < b.activeContentId && (b.activeContentId - b.scrollTarget < 3 ? b.leftRotation() : b.rightRotation());
     }, b.prototype.loadPages = function() {
         var a = this;
         if (1 == a.HTMLPages.length) return $(".content-middle").empty().append(a.HTMLPages[0]), 
-        void a.wireRotation($(this.leftItem), $(this.rightItem));
+        void a.wireRotation($(a.leftItem), $(a.rightItem));
         $(".content-middle").empty().append(a.HTMLPages[a.activeContentId]);
         var b = a.activeContentId == a.numberOfContentBoxes - 1 ? 0 : a.activeContentId + 1, c = 0 === a.activeContentId ? a.numberOfContentBoxes - 1 : a.activeContentId - 1;
-        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]), 
-        a.wireRotation($(this.leftItem), $(this.rightItem));
+        $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]);
     }, b.prototype.parseXML = function(b) {
-        var c = this, d = [];
-        b.find("content").children().each(function(b, c) {
-            pages = [], $(c).children().each(function(b) {
-                var c;
-                HTMLPage = HLP.createHTML("div", "", "page-wrapper"), $(this).children().each(function(b) {
-                    switch ($obj = $(this), tag = $obj.prop("tagName"), text = $obj.text(), tag) {
-                      case "div":
-                        c = HLP.createHTML("div", text);
-                        break;
+        var c = this;
+        b.find("content").children().each(function(b, d) {
+            c.menuItems.push(d.nodeName);
+            var e;
+            HTMLPage = HLP.createHTML("div", "", "page-wrapper");
+            var f = $(d);
+            f.children().each(function(b, c) {
+                switch ($obj = $(c), tag = $obj.prop("tagName"), text = $obj.text(), tag) {
+                  case "div":
+                    e = HLP.createHTML("div", text);
+                    break;
 
-                      case "p":
-                        c = HLP.createHTML("p", text);
-                        break;
+                  case "p":
+                    e = HLP.createHTML("p", text);
+                    break;
 
-                      case "title":
-                        c = HLP.createHTML("h1", text);
-                        break;
+                  case "title":
+                    e = HLP.createHTML("h1", text);
+                    break;
 
-                      case "image":
-                        c = document.createElement("img"), c.src = $obj.attr("src");
-                        break;
+                  case "image":
+                    e = document.createElement("img"), e.src = $obj.attr("src");
+                    break;
 
-                      case "calendar":
-                        c = document.createElement("div"), c.className = "calendar-applet";
-                        break;
+                  case "calendar":
+                    e = document.createElement("div"), e.className = "calendar-applet";
+                    break;
 
-                      case "timeline":
-                        c = HLP.createHTML("div", "", "timeline");
-                        break;
+                  case "timeline":
+                    e = HLP.createHTML("div", "", "timeline");
+                    break;
 
-                      case "audioplayer":
-                        c = a.getPlayerHTML();
-                        break;
+                  case "audioplayer":
+                    e = a.getPlayerHTML();
+                    break;
 
-                      case "HTML":
-                        c = HLP.createDIV("html", ""), c.innerHTML = text;
-                    }
-                    HTMLPage.appendChild(c);
-                }), pages.push(HTMLPage);
-            }), d.push(pages);
-        }), c.content = d, console.log("content fertig");
+                  case "HTML":
+                    e = HLP.createDIV("", ""), e.innerHTML = text;
+                }
+                HTMLPage.appendChild(e);
+            }), c.HTMLPages.push(HTMLPage);
+        }), c.numberOfContentBoxes = c.HTMLPages.length;
     }, b;
 }(), daysNames = [ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ], monthsNames = [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember" ], showingTermin = !1, c, a, cal, timeline, audioCtx;
 
 $(function() {
     function b() {
-        timeline = new Timeline($(".arrow-left"), $("arrow-right"), "include/events.json", ".timeline"), 
-        timeline.setInitCallback(d), timeline.init(), c = new Caroussel("include/content.xml", 0, $(".arrow-left"), $(".arrow-right")), 
-        c.init(), c.setInitCallback(d), c.setMenuItems([ "home", "termine", "media", "kontakt" ]);
+        timeline = new Timeline($(".arrow-left"), $(".arrow-right"), "include/events.json", ".timeline"), 
+        timeline.setInitCallback(d), timeline.init(), c = new Caroussel("include/content.xml", $(".arrow-left"), $(".arrow-right")), 
+        c.init(), c.setInitCallback(d), c.setMenuItems([ "home", "vita", "termine", "media", "kontakt" ]);
     }
     function d() {
         e++, console.log(e), 2 == e && (changeMenuTo(0), wireNavigation(), $(".effect-overlay").stop().fadeOut(1e3));
     }
     var e = 0;
     $(".effect-overlay").stop().fadeIn(0), b(), audioCtx = window.AudioContext || window.webkitAudioContext ? new (window.AudioContext || window.webkitAudioContext)() : "", 
-    a = new AudioPlayer(), cal = new Calendar(), c.setReadyFunction(function() {
-        a.refreshPlayer(), a.wireButtons(), "termine" == c.getNameOfActiveMenu() && (cal.renderMonth(), 
-        Agenda.activate());
+    a = new AudioPlayer(), cal = new Calendar(), c.setScrollCallback(2, function() {
+        console.log("da samma"), timeline.activate();
     }), a.addTrack("Sezuan Studie 1", [ "audio/sezuan1.mp3" ], "images/eins.jpg"), a.addTrack("Sezuan Studie 2", [ "audio/sezuan2.mp3" ], "images/zwei.jpg"), 
     a.getAudio();
 });
@@ -510,8 +529,9 @@ HLP = {
 
 var Timeline = function() {
     function a(a, b, c, d) {
-        this.leftIcon = a, this.rightIcon = b, this.jsonFile = c, this.target = d, this.events = [], 
-        this.html = "", this.currentEventIndex = -1, this.initCallback = function() {};
+        this.$leftIcon = a, this.$rightIcon = b, this.jsonFile = c, this.target = d, this.events = [], 
+        this.html = "", this.currentEvent = null, this.currentEventIndex = -1, this.isScrolling = !1, 
+        this.initCallback = function() {};
     }
     return a.prototype.setInitCallback = function(a) {
         var b = this;
@@ -524,6 +544,13 @@ var Timeline = function() {
     }, a.prototype.deactivate = function() {
         var a = this;
         a.deactivateNavigation();
+    }, a.prototype.scrollToIndex = function(a) {
+        var b = this;
+        null != b.currentEvent && b.currentEvent.removeClass("highlight");
+        var c = $(b.target).children().eq(a), d = c[0].offsetLeft, e = $(".page-wrapper").width();
+        $(b.target).stop().animate({
+            left: -d + e / 2 - 140
+        }, 200), b.currentEvent = c, b.currentEventIndex = a, c.addClass("highlight");
     }, a.prototype.getEventsFromJson = function() {
         var a = this;
         $.ajax({
@@ -551,14 +578,25 @@ var Timeline = function() {
     }, a.prototype.activateNavigation = function() {
         function a() {
             var a = Date.now(), b = -1;
-            c.events.forEach(function(c, d) {
-                c.dateInMilliseconds > a && -1 == b && (b = d);
-            }), -1 == b && console.log(" Keine kommenden Vorstellungen! ");
-            var d = $(c.target).children().eq(b), e = d[0].offsetLeft;
-            $(c.target).css("left", -e), d.addClass("highlight"), console.log(c.events);
+            c.events.forEach(function(d, e) {
+                d.dateInMilliseconds > a && -1 == b && (b = e), -1 == b && $(c.target).children().eq(e).addClass("faded");
+            }), -1 == b && console.log(" Keine kommenden Vorstellungen! "), c.scrollToIndex(b);
         }
-        function b() {}
+        function b() {
+            c.$leftIcon.on("click", function() {
+                c.scrollBack();
+            }), c.$rightIcon.on("click", function() {
+                c.scrollForward();
+            });
+        }
         var c = this;
         a(), b();
+    }, a.prototype.scrollBack = function() {
+        var a = this;
+        a.currentEventIndex = 0 == a.currentEventIndex ? 0 : a.currentEventIndex - 1, a.scrollToIndex(a.currentEventIndex);
+    }, a.prototype.scrollForward = function() {
+        var a = this;
+        a.currentEventIndex = a.currentEventIndex != a.events.length - 1 ? a.currentEventIndex + 1 : a.events.length - 1, 
+        a.scrollToIndex(a.currentEventIndex), a.scrollToIndex(a.currentEventIndex);
     }, a.prototype.deactivateNavigation = function() {}, a;
 }();

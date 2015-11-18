@@ -28,7 +28,7 @@ var AudioPlayer = (function() {
 		this.isAudioReady = false;
 
 		//* Soundnode für Web Audio API */
-		this.soundNode;
+		this.soundNode = null;
 
 		// Internet Explorer ? */
 		if (audioCtx === '') {

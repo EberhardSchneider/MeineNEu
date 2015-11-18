@@ -46,21 +46,21 @@ $(function() {
 
 	function loader() {
 		
-		timeline = new Timeline( $('.arrow-left'), $('arrow-right'), 'include/events.json', ".timeline" );
+		timeline = new Timeline( $('.arrow-left'), $('.arrow-right'), 'include/events.json', ".timeline" );
 		timeline.setInitCallback( loadHandler );
 		timeline.init();
 		
 		
 			//* Caroussel App */
 		c = new Caroussel( 'include/content.xml',
-						0,
+						
 						$('.arrow-left'),
 						$('.arrow-right')
 						);
 		c.init();
 		c.setInitCallback( loadHandler );
 
-		c.setMenuItems( [ 'home', 'termine', 'media', 'kontakt' ] );
+		c.setMenuItems( [ 'home', 'vita', 'termine', 'media', 'kontakt' ] );
 
 
 	}
@@ -108,18 +108,11 @@ $(function() {
 	cal = new Calendar();
 	
 	
+  //* Callback für Termine setzen
+  c.setScrollCallback( 2, function() { console.log("da samma"); timeline.activate(); });
 
 
 
-	//* wird gefeuert sobald HTML im Caroussel bereit ist */
-	c.setReadyFunction(  function() { 
-		a.refreshPlayer();
-		a.wireButtons(); 
-		if ( c.getNameOfActiveMenu() == 'termine' ) {
-			cal.renderMonth();
-			Agenda.activate();
-		}
-	}  );
 	
 	//* Audiotracks vorbereiten */
 	a.addTrack( 'Sezuan Studie 1',
@@ -139,28 +132,41 @@ $(function() {
 
 function wireNavigation() {
 	$('.navbar-home').click(function() {		// Navigations Menu
-			$('.active').removeClass('active');
+		/*	$('.active').removeClass('active');
 			$(this).parent().addClass("active");
+*/
+			
+			
 			changeMenuTo( 0 );
 	});
-	$('.navbar-termine').click(function() {
-			$('.active').removeClass('active');
-			$(this).parent().addClass("active");
 
-			c.setReadyFunction( function() { timeline.activate } );
+	$('.navbar-vita').click(function() {
+			
 			changeMenuTo( 1 );
+
+	});
+	$('.navbar-termine').click(function() {
+		/*	$('.active').removeClass('active');
+			$(this).parent().addClass("active");*/
+
+	
+		changeMenuTo( 2 );
 		
-			timeline.activate();
+			
 	});
 	$('.navbar-media').click(function() {
-			$('.active').removeClass('active');
-			$(this).parent().addClass("active");
-			changeMenuTo( 2 );
+			
+		/*	$('.active').removeClass('active');
+			$(this).parent().addClass("active");*/
+			
+			
+			changeMenuTo( 3 );
 	});
 	$('.navbar-kontakt').click(function() {
-			$('.active').removeClass('active');
+		/*	$('.active').removeClass('active');
 			$(this).parent().addClass("active");
-			changeMenuTo( 3 );
+*/
+			changeMenuTo( 4 );
 	});
 
 }
@@ -169,7 +175,7 @@ function wireNavigation() {
 
 function changeMenuTo( newActiveMenu ) {
 	
-	$(".effect-overlay").stop().fadeIn( 0 ).delay( 100 ).fadeOut( 1000 );
-	c.updateHTML( newActiveMenu );
+/*	$(".effect-overlay").stop().fadeIn( 0 ).delay( 100 ).fadeOut( 1000 );*/
+	c.scrollTo( newActiveMenu );
 	
 }

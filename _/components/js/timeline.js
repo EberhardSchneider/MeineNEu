@@ -1,10 +1,10 @@
 var Timeline = (function() {
 
 	// Scrollbare Terminliste, geordnet nach Datum, Daten liegen in jsonFile, Ausgabe im div mit Id targetId
-	function Timeline( leftIcon, rightIcon, jsonFile, target ) {
+	function Timeline( $leftIcon, $rightIcon, jsonFile, target ) {
 		
-		this.leftIcon = leftIcon;
-		this.rightIcon = rightIcon;
+		this.$leftIcon = $leftIcon;
+		this.$rightIcon = $rightIcon;
 		this.jsonFile = jsonFile;
 		this.target = target;
 
@@ -15,7 +15,11 @@ var Timeline = (function() {
 		this.html = '';		// html markup of the events
 
 		// Event in Focus
+		this.currentEvent = null;
 		this.currentEventIndex = -1;
+
+		// scroll handling
+		this.isScrolling = false;
 
 		// called when init ready
 		this.initCallback = function() {
@@ -65,6 +69,28 @@ var Timeline = (function() {
 		var self = this;
 
 		self.deactivateNavigation();
+	};
+
+	Timeline.prototype.scrollToIndex = function( index ) {
+		
+		var self = this;
+
+		if ( self.currentEvent != null ) self.currentEvent.removeClass("highlight");
+
+		var currentEvent = $(self.target).children().eq( index );
+		var currentLeftPosition = currentEvent[0].offsetLeft;
+
+		// so positionieren, dass das currentEvent in der Mitte ist
+		var width = $(".page-wrapper").width();
+		
+		$(self.target).stop().animate({ left: -currentLeftPosition + (width/2) - 140  }, 200 );
+
+		
+		self.currentEvent = currentEvent;
+		self.currentEventIndex = index;
+
+		//* current Event gets marked
+		currentEvent.addClass("highlight");
 	};
 
 	// -----------------------------------------------------------------------------------------------------------
@@ -138,7 +164,7 @@ var Timeline = (function() {
 
 	Timeline.prototype.activateNavigation = function() {
 
-		function scrollToNextEvent() {
+		function scrollToComingEvent() {
 
 			var now = Date.now();
 			var currentEventIndex = -1;
@@ -150,38 +176,48 @@ var Timeline = (function() {
 					currentEventIndex = index;
 				}
 
-							
+				if (currentEventIndex == -1 ) {
+					$(self.target).children().eq( index ).addClass("faded");
+				}			
 			});
 
 			if ( currentEventIndex == -1 ) {
 					console.log(' Keine kommenden Vorstellungen! ');
 				}
 
-			var currentEvent = $(self.target).children().eq(currentEventIndex);
-
-			var currentLeftPosition = currentEvent[0].offsetLeft;
-			
-			$(self.target).css("left", -currentLeftPosition );
-
-			//* current Event gets marked
-			currentEvent.addClass("highlight");
-
-			console.log( self.events );
+			self.scrollToIndex( currentEventIndex );
 
 
 		}
 
 		function bindMouseEvents() {
-
+			self.$leftIcon.on("click", function() { self.scrollBack() });
+			self.$rightIcon.on("click", function() { self.scrollForward() });
 		}
 
 		
 		var self = this;
 
-		scrollToNextEvent();
+		scrollToComingEvent();
 		bindMouseEvents();
 
 
+	};
+
+	Timeline.prototype.scrollBack = function() {
+		var self = this;
+
+		self.currentEventIndex = (self.currentEventIndex == 0) ? 0 : (self.currentEventIndex-1);
+		self.scrollToIndex( self.currentEventIndex );
+	};
+
+	Timeline.prototype.scrollForward = function() {
+		var self = this;
+		
+		self.currentEventIndex = (self.currentEventIndex != (self.events.length-1)) ? (self.currentEventIndex+1) : (self.events.length-1) ;
+		self.scrollToIndex( self.currentEventIndex );
+		self.scrollToIndex( self.currentEventIndex );
+	
 	};
 
 

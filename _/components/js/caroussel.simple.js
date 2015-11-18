@@ -1,9 +1,8 @@
 var Caroussel = (function() {
-	function Caroussel( ContentFile, MenuItemTagName, $leftItem, $rightItem ) {
+	function Caroussel( ContentFile, $leftItem, $rightItem ) {
 		var self = this;
 
-		/* kompletter Content im Array */
-		this.content = [];
+		
 
 		//* Array zum Speichern der Pages */
 		this.HTMLPages = [];
@@ -15,14 +14,16 @@ var Caroussel = (function() {
 		this.numberOfContentBoxes = 0;
 
 		//* Parameter für das Rotieren */
-		this.rotationDelay = 400;
-		this.rotationDuration = 500;
+		this.rotationDelay = 200;
+		this.rotationDuration = 400;
 
 		//* wird gerade rotiert? */
 		this.isRotating = false;
+		//* Ziel für das Scrolling */
+		this.scrollTarget = -1;
 
 		//* click/rotation events unbound ? */
-		this.rotationUnbound = false;
+		this.rotationUnbound = true;
 
 		//* Name des XML Files */
 		this.XMLFileName = ContentFile;
@@ -48,10 +49,22 @@ var Caroussel = (function() {
 		this.initCallback = function() {
 
 		};
+		
+		// array of functions fired then right page is presented
+		this.scrollCallback = [];
+
+
 	}
 
 	//* Getter & Setter ------------------------------------------------------------------------------------------
 
+	// Setter for scrollCallback
+	Caroussel.prototype.setScrollCallback = function( contentNumber, func ) {
+		var self = this;
+		if ( typeof func == 'function') {
+			self.scrollCallback[contentNumber] = func;
+		}
+	};
 
 	/* Setter für initCallback */
 	Caroussel.prototype.setInitCallback = function( func ) {
@@ -64,6 +77,10 @@ var Caroussel = (function() {
 	//* Setter für HTMLReady function / wird gefeuert sobald HTML komplett aufgebaut ist */
 	Caroussel.prototype.setReadyFunction = function( func ) {
 		this.HTMLReady = func;
+	};
+
+	Caroussel.prototype.clearReadyFunction = function() {
+		this.HTMLReady = function() {};   
 	};
 
 	//* Setter für die Menupunkte */
@@ -96,7 +113,14 @@ var Caroussel = (function() {
 					
 				
 					self.parseXML( $(data) );
-					self.HTMLPages = self.content[0];
+					//* set all scrollCallbacks to empty function
+					for (var i = 0; i < self.HTMLPages.length; i++) {
+						if ( self.scrollCallback[i] == null ) { 
+							self.scrollCallback[i] = function() {}
+						}
+					}
+					
+					self.loadPages();
 
 
 					self.initCallback();
@@ -107,7 +131,24 @@ var Caroussel = (function() {
 
 	}; // init
 
-	
+	Caroussel.prototype.showUnbindArrows = function() {
+		var self = this;
+
+		$(self.leftItem).removeClass("hide");
+		$(self.rightItem).removeClass("hide");
+
+		$(self.leftItem).off();
+		$(self.rightItem).off();
+
+		self.rotationUnbound = true;
+
+	};
+
+	Caroussel.prototype.hideBindArrows = function() {
+		
+	};
+
+	// ---------------------------------------------------------------------------------------------------
 
 
 	
@@ -116,30 +157,22 @@ var Caroussel = (function() {
 		var self = this;
 
 
-		self.HTMLPages = self.content[ newActiveMenu ];
-		
-		self.numberOfContentBoxes = self.HTMLPages.length;
-
-		/* tricksen, falls es nur zwei Seiten gibt */
-		if ( self.numberOfContentBoxes == 2 ) {
-			self.HTMLPages[2] = this.HTMLPages[0];
-		}
-
 		
 		/** und anzeigen */
 		self.loadPages();
+
 		self.HTMLReady();
 	
 
 	};
 
 	//* unbind leftItem, rightItem, if used otherwise */
-	Caroussel.prototype.unbindRotation = function() {
+	/*Caroussel.prototype.unbindRotation = function() {
 		var self = this;
 
 		$(self.leftItem).off();
 		$(self.rightItem).off();
-	};
+	};*/
 
 	
 	//* Inhalt aus XML Datei parsen für Menupunkt menuItemTagName */
@@ -184,26 +217,42 @@ var Caroussel = (function() {
 
 	
 	/** Pfeil-Icons verdrahten */
-	Caroussel.prototype.wireRotation = function(  ) {
+	Caroussel.prototype.wireRotation = function() {
 		
 		var self = this;
 
 
 		//* evtl. Pfeile verstecken */
-		if ( (self.numberOfContentBoxes == 1) && (self.getNameOfActiveMenu() != "termine") ) {
-			$('.arrow-right').addClass('hide');
-			$('.arrow-left').addClass('hide');
+		if ( self.numberOfContentBoxes == 1 ) {
+			$(self.rightItem).addClass('hide');
+			$(self.leftItem).addClass('hide');
 		}
 		else {
+
+			
 			
 			/* Pfeile zeigen, falls sie versteckt waren */
-			$('.arrow-right').removeClass('hide');
-			$('.arrow-left').removeClass('hide');
+			$(self.rightItem).removeClass('hide');
+			$(self.leftItem).removeClass('hide');
+
+
 
 			/* linke/rechte Rotation verdrahten */
 			
-			$(self.leftItem).on( "click", function() { self.leftRotation(); } );
-			$(self.rightItem).on( "click", function() { self.rightRotation(); } );
+			if (self.rotationUnbound) {
+				$(self.leftItem).off("click");
+				$(self.rightItem).off("click");
+
+				$(self.leftItem).click( function() { 
+					var target = self.activeContentId == 0 ? self.HTMLPages.length-1 : self.activeContentId-1;
+					self.scrollTo( target );
+				 } );
+				$(self.rightItem).on( "click", function() { 
+					var target = self.activeContentId == self.HTMLPages.length-1 ? 0 : self.activeContentId+1;
+					self.scrollTo( target );
+				});
+				self.rotationUnbound = false;
+			}
 		
 		}
 
@@ -216,10 +265,16 @@ var Caroussel = (function() {
 	Caroussel.prototype.adjustLeftRotation = function() {
 		var self = this;
 
+		$(".navigation-bar ul").children().eq(self.activeContentId).removeClass("active");
+
+
 		self.activeContentId--;
 		if (self.activeContentId < 0) {
 	 		self.activeContentId = self.numberOfContentBoxes - 1;
 	 	}
+
+		$(".navigation-bar ul").children().eq(self.activeContentId).addClass("active");
+
 	 	$('.content-middle').empty().append(self.HTMLPages[ self.activeContentId ]);
 	 	$('.content-rotate').css( "left", "-100%" );
 		
@@ -228,6 +283,15 @@ var Caroussel = (function() {
 
 	 	$('.content-left').empty().append( self.HTMLPages[idLeftBox]);
 	 	$('.content-right').empty().append(self.HTMLPages[idRightBox]);
+
+	 	if (self.scrollTarget != self.activeContentId ) {
+	 		self.leftRotation();
+	 	} else {
+	 		console.log("Rufe auf Nr." + self.activeContentId);
+	 		 self.scrollCallback[self.activeContentId]();
+	 	}
+
+
 	};
 
 	
@@ -236,10 +300,17 @@ var Caroussel = (function() {
 
 		var self = this;
 
+		$(".navigation-bar ul").children().eq(self.activeContentId).removeClass("active");
+
 		self.activeContentId++;
 		if (self.activeContentId > (self.numberOfContentBoxes - 1) ) {
 	 		self.activeContentId = 0;
 	 	}
+
+	 	$(".navigation-bar ul").children().eq(self.activeContentId).addClass("active");
+
+		
+
 	 	
 	 	$('.content-middle').empty().append(self.HTMLPages[ self.activeContentId ]);
 	 	$('.content-rotate').css( "left", "-100%" );
@@ -249,6 +320,13 @@ var Caroussel = (function() {
 
 	 	$('.content-left').empty().append( self.HTMLPages[idLeftBox]);
 	 	$('.content-right').empty().append(self.HTMLPages[idRightBox]);
+
+	 	if (self.scrollTarget != self.activeContentId ) {
+	 		self.rightRotation();
+	 	} else {
+	 		console.log("Rufe auf Nr." + self.activeContentId);
+	 		 self.scrollCallback[self.activeContentId]();
+	 	}
 	};
 
 	
@@ -279,9 +357,11 @@ var Caroussel = (function() {
 
 	
 	/** Rechtsdrehung animieren */
-	Caroussel.prototype.rightRotation = function() {
+	Caroussel.prototype.rightRotation = function(  ) {
 
 			var self = this;
+
+
 			
 			if (! self.isRotating ) {  /* nur wenn nicht gerade schon rotiert wird */
 				
@@ -302,6 +382,23 @@ var Caroussel = (function() {
 			} // if
 	};
 
+	Caroussel.prototype.scrollTo = function( newActivePage ) {
+		var self = this;
+
+		self.scrollTarget = newActivePage;
+
+
+		if ( self.scrollTarget > self.activeContentId ) {
+			if ( (self.scrollTarget - self.activeContentId) < 3 ) { self.rightRotation(); }
+				else { self.leftRotation(); }
+
+		} else 	if ( self.scrollTarget < self.activeContentId ) {
+			if ( (self.activeContentId - self.scrollTarget ) < 3 ) { self.leftRotation(); }
+				else { self.rightRotation(); }
+		}
+
+	};
+
 
 	
 
@@ -319,7 +416,7 @@ var Caroussel = (function() {
 			$('.content-middle').empty().append(self.HTMLPages[ 0 ]);
 
 			/* und Pfeile verstecken */
-			self.wireRotation( $(this.leftItem), $(this.rightItem) );
+			self.wireRotation( $(self.leftItem), $(self.rightItem) );
 			
 			return;
 		 }
@@ -332,7 +429,7 @@ var Caroussel = (function() {
 	 	$('.content-left').empty().append( self.HTMLPages[idLeftBox]);
 	 	$('.content-right').empty().append(self.HTMLPages[idRightBox]);
 
-	 	self.wireRotation( $(this.leftItem), $(this.rightItem) );
+	 	
 	};
 
 
@@ -344,31 +441,31 @@ var Caroussel = (function() {
 
 	  var self = this;
 
-		/* zum Speichern für die Rückgabe */
-		
-		var completeContent = [];
+	
 
 		/* Alle Menüpunkte im XML File durchlaufen */
 		
 		$xmlData.find( "content" ).children().each( function( menuIndex, elem ) {
 
-			pages = [];
+			
+			// save menu item name
+			self.menuItems.push( elem.nodeName );
 
-			/* Erst die einzelnen Seiten */
-			$(elem).children().each( function (pageIndex) {
+			/* jeweils nur eine Seite */
+
 
 						var currentHTMLObject;
 
 						
 						HTMLPage = HLP.createHTML('div', '', 'page-wrapper'); /* Page_Wrapper */
 
-						/* dann die Unterpunkte auf den Seiten  */
-						$(this).children().each( function( subIndex ) {
+						var $page = $(elem);
 
-						
-							$obj = $(this);
+						$page.children().each( function(index, elem ) {
+							$obj = $(elem);
 							tag = $obj.prop('tagName');
 							text = $obj.text();
+						
 
 							switch (tag) {
 								case 'div': 		currentHTMLObject = HLP.createHTML('div', text);
@@ -389,24 +486,22 @@ var Caroussel = (function() {
 													
 								case 'audioplayer': currentHTMLObject = a.getPlayerHTML();
 													break;
-								case 'HTML': 		currentHTMLObject = HLP.createDIV( 'html', '' );
+								case 'HTML': 		currentHTMLObject = HLP.createDIV( '', '' );
 													currentHTMLObject.innerHTML = text;
 
 
 													break;						
 							}     //* switch */
-
-						
-							
+					
 							HTMLPage.appendChild( currentHTMLObject );
-						}); /* each */	
-						pages.push( HTMLPage );
-					}); /* each Pages*/
-
-					completeContent.push(pages);
+					});
+							
+							
+						
+					self.HTMLPages.push( HTMLPage );
+				
 				});  /* MenuItems */
-				self.content = completeContent;
-				console.log("content fertig");
+				self.numberOfContentBoxes = self.HTMLPages.length;
 
 	};
 

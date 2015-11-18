@@ -3,31 +3,33 @@
 <content>
 	<home>
 		
-		<page>
+		
 			<title>Aktuelles</title>
-			<p>Nach den Blues Brothers in Ausburg arbeitet Eberhard Schneider an der Musik zu Schillers Don Karlos (Regie: Alexander Charim).</p>
-			<image src="images/drei.jpg"/>
-		</page>
-		<page>
-			<title>Zukünftiges</title>
-			<p>Eberhard Schneider arbeitet zur Zeit gleichzeitig an den Musiken zu Don Karlos und Gespenst von Canterville am Theater Osnabrück.</p>
-			<p>Ab September übernimmt er zudem einen Lehrauftrag am Insitut für Musik Osnabrück.</p>
-		</page>
-
-		<page>
-			<title>Vita</title>
-			<p>Eberhard Schneider, geborener Fritsche, absolvierte sein Dirigierstudium ab 1997 bei Prof. Lutz Köhler, zunächst an der Hochschule für Musik Hannover, dann ab 1999 an der Hochschule der Künste Berlin, wo er seine Abschlussprüfung 2001 mit dem Dirigat von Mozarts Don Giovanni ablegte. Im selben Jahr engagierte Friedemann Layer ihn als ständigen Assistenten der Opern- und Konzertproduktionen des Orchesters an die Opéra Nationale de Montpellier. Zu seinen Aufgaben dort gehörten die Leitung szenischer Proben, musikalische Arbeit mit Sängern sowie die Leitung von Kammerkonzerten.</p>
-			<p> Danach wechselte Eberhard Schneider als Korrepetitor mit Dirigierverpflichtung an das Landestheater Detmold (GMD Erich Wächter), wo er u. a. Smetanas Die verkaufte Braut, Mozarts Così fan tutte und Strawinskys L'Histoire du Soldat dirigierte, die Wiederaufnahmen der Musicals Cabaret und Les Misérables leitete und die musikalische Leitung von Kálmáns Die Herzogin von Chicago übernahm. Im Dezember 2006 ging er als Kapellmeister und Repetitor ans Stadttheater Bielefeld (GMD Peter Kuhn), wo er u. a. Puccinis La Bohème und Scarlattis Griselda dirigierte. Als Konzertdirigent dirigierte Eberhard Fritsche in dieser Zeit u. a. die Berliner Symphoniker und die Bergischen Symphoniker.</p>
-			<p> 2009 bis 2014 war Eberhard Schneider als Studienleiter und Kapellmeister am Theater Augsburg (GMD Dirk Kaftan) engagiert. Hier übernahm er die musikalische Leitung der Carmina Burana, des Ballettabends divertimento4Amadeus sowie der Musicals Hair (2013) und My Fair Lady (2014) auf der Freilichtbühne des Theaters Augsburg. Zudem dirigierte er u. a. Carmen, Turandot, La bohème, Le nozze di Figaro und Pelléas et Melisande. 2013 gastierte Eberhard Schneider am Theater Osnabrück als musikalischer Leiter der Schauspielproduktion Woyzeck von Waits/Brennan/Wilson. </p>
-			<p> Seit der Spielzeit 2014/15 ist Eberhard Schneider freiberuflich tätig. Er übernahm am Theater Osnabrück die musikalische Leitung für Der gute Mensch von Sezuan (Regie: Annette Pullen), Ronja Räubertochter (Regie: Ramin Anaraki) und Doktor Faustus (Regie: Alexander Charim).</p>
-			<p> </p>
-		</page>
-		<page>
-			<title>Vergangene Projekte</title>
 			<HTML><![CDATA[
-				<table>
+				<p>In der Spielzeit 2015/16 komponiert Eberhard Schneider die Musik für Schillers <a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1123" class="stueck">Don Carlos</a> (Regie: Alexander Charim) und übernimmt die musikalische Leitung für <a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1082" class="stueck">Das Gespenst von Canterville</a> am Theater Osnabrück.</p>
+			<image src="images/don-carlos_7_klein.jpg"/>
+		
+		
+			
+			]]></HTML>
+		
+	</home>
+
+	<projekte>
+
+		
+			
+		
+			<title>Projekte</title>
+			<HTML><![CDATA[
+				<div class="html"><table>
 			<colgroup><col width="40%"><col width="35%"><col width="25%"></colgroup>
 	
+			
+			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1123" class="stueck">Don Carlos</a></td><td>Komposition, Sounddesign</td><td class="spalte3">November 2015</td></tr>
+
+			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1082" class="stueck">Das Gespenst von Canterville</a></td><td>Komposition, Leitung, Arrangement</td><td class="spalte3">Oktober 2015</td></tr>
+
 			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=672" class="stueck">Doktor Faustus</a></td><td>Komposition, Leitung, Arrangement</td><td class="spalte3">März 2015</td></tr>
 			
 			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&amp;stid=943" class="stueck">Ronja Räubertochter</a></td><td>Komposition, Leitung, Arrangement</td><td class="spalte3">November 2014</td></tr>
@@ -73,33 +75,42 @@
 			<tr><td><a href="http://www.theater-augsburg.de/content.php?nav=3&werkID=334&des_sp=2&spielplan=29552" class="stueck">Zar und Zimmermann</a></td><td>Übernahme</td><td class="spalte3">Januar 2010</td></tr>
 			
 			<tr><td><a href="http://www.theater-augsburg.de/content.php?nav=3&werkID=147&des_sp=2&spielplan=25928" class="stueck">Zauberflöte</a></td><td>Übernahme</td><td class="spalte3">Dezember 2009</td></tr>
-		</table>]]></HTML>
-		</page>
-	</home>
+		</table></div>]]></HTML>
+
+		<title>Vita</title>
+			<p>Eberhard Schneider, geborener Fritsche, absolvierte sein Dirigierstudium ab 1997 bei Prof. Lutz Köhler, zunächst an der Hochschule für Musik Hannover, dann ab 1999 an der Hochschule der Künste Berlin, wo er seine Abschlussprüfung 2001 mit dem Dirigat von Mozarts Don Giovanni ablegte. Im selben Jahr engagierte Friedemann Layer ihn als ständigen Assistenten der Opern- und Konzertproduktionen des Orchesters an die Opéra Nationale de Montpellier. Zu seinen Aufgaben dort gehörten die Leitung szenischer Proben, musikalische Arbeit mit Sängern sowie die Leitung von Kammerkonzerten.</p>
+			<p> Danach wechselte Eberhard Schneider als Korrepetitor mit Dirigierverpflichtung an das Landestheater Detmold (GMD Erich Wächter), wo er u. a. Smetanas Die verkaufte Braut, Mozarts Così fan tutte und Strawinskys L'Histoire du Soldat dirigierte, die Wiederaufnahmen der Musicals Cabaret und Les Misérables leitete und die musikalische Leitung von Kálmáns Die Herzogin von Chicago übernahm. Im Dezember 2006 ging er als Kapellmeister und Repetitor ans Stadttheater Bielefeld (GMD Peter Kuhn), wo er u. a. Puccinis La Bohème und Scarlattis Griselda dirigierte. Als Konzertdirigent dirigierte Eberhard Fritsche in dieser Zeit u. a. die Berliner Symphoniker und die Bergischen Symphoniker.</p>
+			<p> 2009 bis 2014 war Eberhard Schneider als Studienleiter und Kapellmeister am Theater Augsburg (GMD Dirk Kaftan) engagiert. Hier übernahm er die musikalische Leitung der Carmina Burana, des Ballettabends divertimento4Amadeus sowie der Musicals Hair (2013) und My Fair Lady (2014) auf der Freilichtbühne des Theaters Augsburg. Zudem dirigierte er u. a. Carmen, Turandot, La bohème, Le nozze di Figaro und Pelléas et Melisande. 2013 gastierte Eberhard Schneider am Theater Osnabrück als musikalischer Leiter der Schauspielproduktion Woyzeck von Waits/Brennan/Wilson. </p>
+			<p> Seit der Spielzeit 2014/15 ist Eberhard Schneider freiberuflich tätig. Er übernahm am Theater Osnabrück die musikalische Leitung für Der gute Mensch von Sezuan (Regie: Annette Pullen), Ronja Räubertochter (Regie: Ramin Anaraki) und Doktor Faustus (Regie: Alexander Charim).</p>
+			<p> </p>
+		
+		
+	</projekte>
 	<termine>
-		<page><calendar/><timeline/></page>
+		<calendar/><timeline/>
 	</termine>
 	<media>
-		<page>
+		
 			<title>Audio</title>
 			<!-- <p>Musikalische Leitung. Osnabrück 2014/15</p> -->
 			<audioplayer/>
-		</page>
+		
 		
 	</media>
 	<kontakt>
-		<page>
+		
 			<title>Kontakt</title>
 			
 			<HTML><![CDATA[
-				<table>
+				<p></p><p></p>
+				<div class="html"><table>
 					<tr><td>mail[at]eberhardschneider.info</td></tr>
 					<tr><td>mobil +49.0176.30478077</td></tr>
 					<tr><td class="icon"><a href="https://twitter.com/ebbSchneider" target="_blank"><img src="icons/twitter45.svg" alt="Link to Twitter"></a></td><td class="icon"><a href="https://www.facebook.com/ebbschneider" target="_blank"><img src="icons/facebook55.svg" alt="Link to Facebook"></HTML></td></tr>
-				</table>
+				</table></div>
 				]]>	
 			</HTML>
-		</page>
+		
 		
 	</kontakt>
 </content>
