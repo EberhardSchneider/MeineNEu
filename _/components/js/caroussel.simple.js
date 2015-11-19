@@ -14,7 +14,7 @@ var Caroussel = (function() {
 		this.numberOfContentBoxes = 0;
 
 		//* Parameter für das Rotieren */
-		this.rotationDelay = 200;
+		this.rotationDelay = 350;
 		this.rotationDuration = 400;
 
 		//* wird gerade rotiert? */
@@ -53,6 +53,9 @@ var Caroussel = (function() {
 		// array of functions fired then right page is presented
 		this.scrollCallback = [];
 
+		//array of functions fired befor scrolling (PubSub model?????)
+		this.beforeScrollCallback = [];
+
 
 	}
 
@@ -63,6 +66,14 @@ var Caroussel = (function() {
 		var self = this;
 		if ( typeof func == 'function') {
 			self.scrollCallback[contentNumber] = func;
+		}
+	};
+
+	// Setter for beforeScrollCallback
+	Caroussel.prototype.setBeforeScrollCallback = function( contentNumber, func ) {
+		var self = this;
+		if ( typeof func == 'function') {
+			self.beforeScrollCallback[contentNumber] = func;
 		}
 	};
 
@@ -118,6 +129,10 @@ var Caroussel = (function() {
 						if ( self.scrollCallback[i] == null ) { 
 							self.scrollCallback[i] = function() {}
 						}
+						if ( self.beforeScrollCallback[i] == null ) { 
+							self.beforeScrollCallback[i] = function() {}
+						}
+
 					}
 					
 					self.loadPages();
@@ -287,7 +302,6 @@ var Caroussel = (function() {
 	 	if (self.scrollTarget != self.activeContentId ) {
 	 		self.leftRotation();
 	 	} else {
-	 		console.log("Rufe auf Nr." + self.activeContentId);
 	 		 self.scrollCallback[self.activeContentId]();
 	 	}
 
@@ -324,7 +338,6 @@ var Caroussel = (function() {
 	 	if (self.scrollTarget != self.activeContentId ) {
 	 		self.rightRotation();
 	 	} else {
-	 		console.log("Rufe auf Nr." + self.activeContentId);
 	 		 self.scrollCallback[self.activeContentId]();
 	 	}
 	};
@@ -384,6 +397,9 @@ var Caroussel = (function() {
 
 	Caroussel.prototype.scrollTo = function( newActivePage ) {
 		var self = this;
+
+		// zuerst die beforeScrollCallback Funktion aufrufen
+		self.beforeScrollCallback[ newActivePage ]();
 
 		self.scrollTarget = newActivePage;
 

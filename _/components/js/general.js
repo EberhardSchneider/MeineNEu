@@ -69,7 +69,6 @@ $(function() {
 
 
 		loadCount++;
-		console.log( loadCount );
 
 		if (loadCount == 2 ) {
 			//* geladen!
@@ -109,7 +108,13 @@ $(function() {
 	
 	
   //* Callback für Termine setzen
-  c.setScrollCallback( 2, function() { console.log("da samma"); timeline.activate(); });
+  c.setScrollCallback( 2, function() {  timeline.activate(); });
+  c.setScrollCallback( 3, function() { a.refreshPlayer(); a.wireButtons(); })
+  c.setBeforeScrollCallback( 0, function() { $('.timeline-arrow-left,.timeline-arrow-right,.timeline-heute').fadeOut(400); });
+  c.setBeforeScrollCallback( 1, function() { $('.timeline-arrow-left,.timeline-arrow-right,.timeline-heute').fadeOut(400); });
+  c.setBeforeScrollCallback( 3, function() { $('.timeline-arrow-left,.timeline-arrow-right,.timeline-heute').fadeOut(400); });
+  c.setBeforeScrollCallback( 4, function() { $('.timeline-arrow-left,.timeline-arrow-right,.timeline-heute').fadeOut(400); });
+
 
 
 

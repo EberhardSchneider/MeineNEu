@@ -20,12 +20,20 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	text-align: block;
+	
 	p { 
 		font-size: 55% !important;
 		padding: 2% 15%;
 		margin: 0;
 
 	}
+
+	iframe {
+		display: block;
+		margin: 75px auto;		
+	}
+
+
 	.icon {
 		float: left;
 		margin: auto;
@@ -238,13 +246,51 @@
 	}
 }
 
+
+	.timeline-arrow-left, .timeline-arrow-right {
+
+		position: fixed;
+
+		@include transition-property(background-color);
+		@include transition-property(border-radius);
+
+		@include transition-duration(0.5s);
+
+
+		
+		width: 45px !important;
+		height: 45px;
+
+		padding: 3px;
+
+		border: solid rgba(176, 48, 48, 0) 3px !important;
+		img {
+			width: 45px !important;
+			height: 45px;
+		}
+	
+		&:hover {  border: solid rgba(176, 48, 48, 1) 3px !important;; border-radius: 45px; }
+	}
+
+	.timeline-heute {
+		position: fixed;
+		padding: 3px;
+
+		&:hover {
+			border-bottom: solid rgba(176, 48, 48, 1) 3px !important;
+			cursor: pointer;
+
+		}
+	}
+
 .timeline {
 	position: relative;
-	top: 5%;
-	height: 450px;
+	top: 2%;
+	height: 350px;
 	width: 1000%;
 	background: rgba( 0,0,0,0.1 );
 	overflow: none;
+
 
 
 	.highlight {
@@ -256,15 +302,15 @@
 
 	.event {
 		position: relative;
-		width: 220px;
-		height: 300px;
+		width: 170px;
+		height: 220px;
 		display: inline-block;
 		padding: 30px;
 		margin: 20px;
 
 		vertical-align: top;
 
-		font-size: 60%;
+		font-size: 45%;
 		
 		background-color: #eee;
 		border: solid rgba(0,0,0,0) 3px;
@@ -363,13 +409,13 @@
 .audio-wrapper {
 	position: relative;
 	display: block;
-	width: 320px;
-	height: 40%;
+	width: 420px;
+	height: 320px;
 	min-height: 250px;
 	margin: 50px auto;
 	background-color: black;
 	color: white;
-	border: solid #b33 2px;
+	border: solid #b33 3px;
 	border-radius: 4px;
 
 
@@ -377,7 +423,7 @@
 		position: relative;
 		text-align: center;
 		width: 80%;
-		height: 100%;
+		height: 50%;
 		margin: 2% 10%;
 		.audio-track-image {
 			display: block;
@@ -393,24 +439,39 @@
 			left: 30%;
 			width: 70%;
 			margin: auto;
+			border-bottom: solid #b33 2px;
 			
 		}
 	} // audio-title
 	
 	.audio-controls{
+
+
 		position: relative;
-		
-		width: 352px;
+		top: 50px;
+		left: 20px;
+		width: 370px;
 		display: block;
 		margin: auto;
 		color: black;
+
+		
 	
 		a {
+			border: solid 2px black;
+
+				&:hover {
+					border-left: solid 2px white;
+					border-radius: 25px;
+				}
 			span { 
 				text-align: center;
 				width: 50px;
 				height: 50px; 
-			}
+			
+				}
+
+			
 			width: 50px;
 			height: 50px;
 			text-align: center;
@@ -428,14 +489,15 @@
 /* für die Tabelle */
 .html {
 	
-	
 		font-size: 50%;
 
 		table {
-			margin: 40px auto;
+			margin: 50px auto;
 			padding: 30px;
 			background-color: rgba(230,230,230,1);
-		}
+	}
+
+	
 
 
 
@@ -453,3 +515,37 @@
 
 .stueck { font-style:italic; color:#bb3333; }
 	a { text-decoration: none;}
+
+.link {
+	display: block;
+	margin: 5px auto;
+	padding: 10px 5px;
+	font-size: 70%;
+	width: 450px;
+	text-align: center;
+
+	background-color: rgba(230,230,230,1);
+
+	&:hover {
+		background-color: #fff;
+	}
+}
+
+	.visitenkarte {
+		font-size: 50%;
+		
+
+		.letter {
+			display: block;
+			width: 40%;
+			background-color: rgba(230,230,230,1);		
+			margin: 30px auto;
+			padding: 20px;
+			
+			div {
+				margin: 10px;
+				text-align: center;
+			}
+			
+		}
+	}

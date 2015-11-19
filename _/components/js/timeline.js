@@ -47,6 +47,7 @@ var Timeline = (function() {
 	Timeline.prototype.init = function() {
 		
 		this.getEventsFromJson();
+		this.insertArrows();
 
 	};
 
@@ -59,7 +60,9 @@ var Timeline = (function() {
 		$( self.target ).html( self.html );
 
 	
+		
 		self.activateNavigation();
+		self.showArrows();
 
 
 	};
@@ -83,7 +86,7 @@ var Timeline = (function() {
 		// so positionieren, dass das currentEvent in der Mitte ist
 		var width = $(".page-wrapper").width();
 		
-		$(self.target).stop().animate({ left: -currentLeftPosition + (width/2) - 140  }, 200 );
+		$(self.target).stop().animate({ left: -currentLeftPosition + (width/2) - 112  }, 200 );
 
 		
 		self.currentEvent = currentEvent;
@@ -96,6 +99,18 @@ var Timeline = (function() {
 	// -----------------------------------------------------------------------------------------------------------
 
 
+	Timeline.prototype.insertArrows = function() {
+		var htmlMarkUp = '<div class="timeline-arrow-left" style="display:none;"><img src="icons/left.svg"></div><div class="timeline-heute">Heute</div>
+			<div class="timeline-arrow-right" style="display:none;"><img src="icons/right.svg"></div>';
+		$('body').append( htmlMarkUp );
+	};
+
+	Timeline.prototype.showArrows = function() {
+		$('.timeline-arrow-left,.timeline-heute').fadeIn(400);
+		$('.timeline-arrow-right').fadeIn(400);
+	
+
+	};
 
 	// parse json in array and to html
 	Timeline.prototype.getEventsFromJson = function() {
@@ -111,12 +126,12 @@ var Timeline = (function() {
 		  
 		  success:  function( data ) { 
 
-		  var htmlMarkUp = "";
+		  
 		  var eventsArray = [];
+		  var htmlMarkUp = "";
 		  	
 			//* Element ins Array und sortieren */
 			$.each( data, function( key, elem ) {
-				
 				elem.dateInMilliseconds = Date.parse( elem.datum );
 				eventsArray.push( elem );
 			});
@@ -193,12 +208,30 @@ var Timeline = (function() {
 		function bindMouseEvents() {
 			self.$leftIcon.on("click", function() { self.scrollBack() });
 			self.$rightIcon.on("click", function() { self.scrollForward() });
+			self.$heuteIcon.on("click", scrollToComingEvent );
+		}
+
+		function positionArrows() {
+			
+			self.$leftIcon = $('.timeline-arrow-left');
+			self.$rightIcon = $('.timeline-arrow-right');
+			self.$heuteIcon = $('.timeline-heute');
+
+			var center = $('.wrapper').width() / 2;
+			var widthIcon = self.$heuteIcon.width();
+
+			self.$leftIcon.css( { left: "34%", top: ($('.timeline').offset().top -45 ) + "px" });
+			self.$rightIcon.css( { right: "34%", top: ($('.timeline').offset().top -45 ) + "px" });
+			self.$heuteIcon.css( { left: (center - widthIcon/2) + "px", top: ($('.timeline').offset().top -35 ) + "px" });
+
+
 		}
 
 		
 		var self = this;
 
 		scrollToComingEvent();
+		positionArrows();
 		bindMouseEvents();
 
 
@@ -213,7 +246,8 @@ var Timeline = (function() {
 
 	Timeline.prototype.scrollForward = function() {
 		var self = this;
-		
+
+
 		self.currentEventIndex = (self.currentEventIndex != (self.events.length-1)) ? (self.currentEventIndex+1) : (self.events.length-1) ;
 		self.scrollToIndex( self.currentEventIndex );
 		self.scrollToIndex( self.currentEventIndex );

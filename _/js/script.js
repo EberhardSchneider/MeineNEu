@@ -339,15 +339,19 @@ var Agenda = {
     }, a;
 }(), Caroussel = function() {
     function b(a, b, c) {
-        this.HTMLPages = [], this.activeContentId = 0, this.numberOfContentBoxes = 0, this.rotationDelay = 200, 
+        this.HTMLPages = [], this.activeContentId = 0, this.numberOfContentBoxes = 0, this.rotationDelay = 350, 
         this.rotationDuration = 400, this.isRotating = !1, this.scrollTarget = -1, this.rotationUnbound = !0, 
         this.XMLFileName = a, this.leftItem = b.get(), this.rightItem = c.get(), this.menuItems = "", 
         this.activeMenuName = "", this.wireRotation($(this.leftItem), $(this.rightItem)), 
-        this.HTMLReady = function() {}, this.initCallback = function() {}, this.scrollCallback = [];
+        this.HTMLReady = function() {}, this.initCallback = function() {}, this.scrollCallback = [], 
+        this.beforeScrollCallback = [];
     }
     return b.prototype.setScrollCallback = function(a, b) {
         var c = this;
         "function" == typeof b && (c.scrollCallback[a] = b);
+    }, b.prototype.setBeforeScrollCallback = function(a, b) {
+        var c = this;
+        "function" == typeof b && (c.beforeScrollCallback[a] = b);
     }, b.prototype.setInitCallback = function(a) {
         var b = this;
         "function" == typeof a && (b.initCallback = a);
@@ -369,7 +373,8 @@ var Agenda = {
             datatype: "xml",
             success: function(b) {
                 a.parseXML($(b));
-                for (var c = 0; c < a.HTMLPages.length; c++) null == a.scrollCallback[c] && (a.scrollCallback[c] = function() {});
+                for (var c = 0; c < a.HTMLPages.length; c++) null == a.scrollCallback[c] && (a.scrollCallback[c] = function() {}), 
+                null == a.beforeScrollCallback[c] && (a.beforeScrollCallback[c] = function() {});
                 a.loadPages(), a.initCallback();
             }
         });
@@ -411,8 +416,7 @@ var Agenda = {
         $(".content-rotate").css("left", "-100%");
         var b = a.activeContentId == a.numberOfContentBoxes - 1 ? 0 : a.activeContentId + 1, c = 0 === a.activeContentId ? a.numberOfContentBoxes - 1 : a.activeContentId - 1;
         $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]), 
-        a.scrollTarget != a.activeContentId ? a.leftRotation() : (console.log("Rufe auf Nr." + a.activeContentId), 
-        a.scrollCallback[a.activeContentId]());
+        a.scrollTarget != a.activeContentId ? a.leftRotation() : a.scrollCallback[a.activeContentId]();
     }, b.prototype.adjustRightRotation = function() {
         var a = this;
         $(".navigation-bar ul").children().eq(a.activeContentId).removeClass("active"), 
@@ -421,8 +425,7 @@ var Agenda = {
         $(".content-rotate").css("left", "-100%");
         var b = a.activeContentId == a.numberOfContentBoxes - 1 ? 0 : a.activeContentId + 1, c = 0 === a.activeContentId ? a.numberOfContentBoxes - 1 : a.activeContentId - 1;
         $(".content-left").empty().append(a.HTMLPages[c]), $(".content-right").empty().append(a.HTMLPages[b]), 
-        a.scrollTarget != a.activeContentId ? a.rightRotation() : (console.log("Rufe auf Nr." + a.activeContentId), 
-        a.scrollCallback[a.activeContentId]());
+        a.scrollTarget != a.activeContentId ? a.rightRotation() : a.scrollCallback[a.activeContentId]();
     }, b.prototype.leftRotation = function() {
         var a = this;
         a.isRotating || ($(a.leftItem).fadeOut(0).fadeIn(250), a.isRotating = !0, $(".content-rotate").delay(a.rotationDelay).animate({
@@ -439,7 +442,7 @@ var Agenda = {
         }));
     }, b.prototype.scrollTo = function(a) {
         var b = this;
-        b.scrollTarget = a, b.scrollTarget > b.activeContentId ? b.scrollTarget - b.activeContentId < 3 ? b.rightRotation() : b.leftRotation() : b.scrollTarget < b.activeContentId && (b.activeContentId - b.scrollTarget < 3 ? b.leftRotation() : b.rightRotation());
+        b.beforeScrollCallback[a](), b.scrollTarget = a, b.scrollTarget > b.activeContentId ? b.scrollTarget - b.activeContentId < 3 ? b.rightRotation() : b.leftRotation() : b.scrollTarget < b.activeContentId && (b.activeContentId - b.scrollTarget < 3 ? b.leftRotation() : b.rightRotation());
     }, b.prototype.loadPages = function() {
         var a = this;
         if (1 == a.HTMLPages.length) return $(".content-middle").empty().append(a.HTMLPages[0]), 
@@ -500,12 +503,22 @@ $(function() {
         c.init(), c.setInitCallback(d), c.setMenuItems([ "home", "vita", "termine", "media", "kontakt" ]);
     }
     function d() {
-        e++, console.log(e), 2 == e && (changeMenuTo(0), wireNavigation(), $(".effect-overlay").stop().fadeOut(1e3));
+        e++, 2 == e && (changeMenuTo(0), wireNavigation(), $(".effect-overlay").stop().fadeOut(1e3));
     }
     var e = 0;
     $(".effect-overlay").stop().fadeIn(0), b(), audioCtx = window.AudioContext || window.webkitAudioContext ? new (window.AudioContext || window.webkitAudioContext)() : "", 
     a = new AudioPlayer(), cal = new Calendar(), c.setScrollCallback(2, function() {
-        console.log("da samma"), timeline.activate();
+        timeline.activate();
+    }), c.setScrollCallback(3, function() {
+        a.refreshPlayer(), a.wireButtons();
+    }), c.setBeforeScrollCallback(0, function() {
+        $(".timeline-arrow-left,.timeline-arrow-right,.timeline-heute").fadeOut(400);
+    }), c.setBeforeScrollCallback(1, function() {
+        $(".timeline-arrow-left,.timeline-arrow-right,.timeline-heute").fadeOut(400);
+    }), c.setBeforeScrollCallback(3, function() {
+        $(".timeline-arrow-left,.timeline-arrow-right,.timeline-heute").fadeOut(400);
+    }), c.setBeforeScrollCallback(4, function() {
+        $(".timeline-arrow-left,.timeline-arrow-right,.timeline-heute").fadeOut(400);
     }), a.addTrack("Sezuan Studie 1", [ "audio/sezuan1.mp3" ], "images/eins.jpg"), a.addTrack("Sezuan Studie 2", [ "audio/sezuan2.mp3" ], "images/zwei.jpg"), 
     a.getAudio();
 });
@@ -537,10 +550,10 @@ var Timeline = function() {
         var b = this;
         "function" == typeof a && (b.initCallback = a);
     }, a.prototype.init = function() {
-        this.getEventsFromJson();
+        this.getEventsFromJson(), this.insertArrows();
     }, a.prototype.activate = function() {
         var a = this;
-        $(a.target).html(a.html), a.activateNavigation();
+        $(a.target).html(a.html), a.activateNavigation(), a.showArrows();
     }, a.prototype.deactivate = function() {
         var a = this;
         a.deactivateNavigation();
@@ -549,48 +562,68 @@ var Timeline = function() {
         null != b.currentEvent && b.currentEvent.removeClass("highlight");
         var c = $(b.target).children().eq(a), d = c[0].offsetLeft, e = $(".page-wrapper").width();
         $(b.target).stop().animate({
-            left: -d + e / 2 - 140
+            left: -d + e / 2 - 112
         }, 200), b.currentEvent = c, b.currentEventIndex = a, c.addClass("highlight");
+    }, a.prototype.insertArrows = function() {
+        var a = '<div class="timeline-arrow-left" style="display:none;"><img src="icons/left.svg"></div><div class="timeline-heute">Heute</div>\r\n			<div class="timeline-arrow-right" style="display:none;"><img src="icons/right.svg"></div>';
+        $("body").append(a);
+    }, a.prototype.showArrows = function() {
+        $(".timeline-arrow-left,.timeline-heute").fadeIn(400), $(".timeline-arrow-right").fadeIn(400);
     }, a.prototype.getEventsFromJson = function() {
         var a = this;
         $.ajax({
             dataType: "json",
             url: this.jsonFile,
             success: function(b) {
-                var c = "", d = [];
+                var c = [], d = "";
                 $.each(b, function(a, b) {
-                    b.dateInMilliseconds = Date.parse(b.datum), d.push(b);
-                }), d.sort(function(a, b) {
+                    b.dateInMilliseconds = Date.parse(b.datum), c.push(b);
+                }), c.sort(function(a, b) {
                     return a.dateInMilliseconds - b.dateInMilliseconds;
-                }), d.forEach(function(a, b) {
-                    var d = "";
+                }), c.forEach(function(a, b) {
+                    var c = "";
                     $.each(a.besetzung, function(a, b) {
-                        d += "<div class='zeile'><span class='rolle'>" + a + ":</span><span class='darsteller'>" + b + "</span></div>";
+                        c += "<div class='zeile'><span class='rolle'>" + a + ":</span><span class='darsteller'>" + b + "</span></div>";
                     });
                     var e = new Date(a.datum), f = e.toLocaleDateString(), g = e.toLocaleTimeString(navigator.language, {
                         hour: "2-digit",
                         minute: "2-digit"
                     });
-                    g = g.replace(":", "h"), c += '<div class="event">\r\n							<div class="komponist">' + a.komponist + '</div>\r\n							<div class="title">' + a.title + '</div>\r\n							<div class="ort">' + a.ort + '</div>\r\n							<div class="datum">' + f + " " + g + '</div>\r\n							<div class="besetzung">' + d + "</div>\r\n						</div>";
-                }), a.html = c, a.events = d, a.initCallback();
+                    g = g.replace(":", "h"), d += '<div class="event">\r\n							<div class="komponist">' + a.komponist + '</div>\r\n							<div class="title">' + a.title + '</div>\r\n							<div class="ort">' + a.ort + '</div>\r\n							<div class="datum">' + f + " " + g + '</div>\r\n							<div class="besetzung">' + c + "</div>\r\n						</div>";
+                }), a.html = d, a.events = c, a.initCallback();
             }
         });
     }, a.prototype.activateNavigation = function() {
         function a() {
             var a = Date.now(), b = -1;
-            c.events.forEach(function(d, e) {
-                d.dateInMilliseconds > a && -1 == b && (b = e), -1 == b && $(c.target).children().eq(e).addClass("faded");
-            }), -1 == b && console.log(" Keine kommenden Vorstellungen! "), c.scrollToIndex(b);
+            d.events.forEach(function(c, e) {
+                c.dateInMilliseconds > a && -1 == b && (b = e), -1 == b && $(d.target).children().eq(e).addClass("faded");
+            }), -1 == b && console.log(" Keine kommenden Vorstellungen! "), d.scrollToIndex(b);
         }
         function b() {
-            c.$leftIcon.on("click", function() {
-                c.scrollBack();
-            }), c.$rightIcon.on("click", function() {
-                c.scrollForward();
+            d.$leftIcon.on("click", function() {
+                d.scrollBack();
+            }), d.$rightIcon.on("click", function() {
+                d.scrollForward();
+            }), d.$heuteIcon.on("click", a);
+        }
+        function c() {
+            d.$leftIcon = $(".timeline-arrow-left"), d.$rightIcon = $(".timeline-arrow-right"), 
+            d.$heuteIcon = $(".timeline-heute");
+            var a = $(".wrapper").width() / 2, b = d.$heuteIcon.width();
+            d.$leftIcon.css({
+                left: "34%",
+                top: $(".timeline").offset().top - 45 + "px"
+            }), d.$rightIcon.css({
+                right: "34%",
+                top: $(".timeline").offset().top - 45 + "px"
+            }), d.$heuteIcon.css({
+                left: a - b / 2 + "px",
+                top: $(".timeline").offset().top - 35 + "px"
             });
         }
-        var c = this;
-        a(), b();
+        var d = this;
+        a(), c(), b();
     }, a.prototype.scrollBack = function() {
         var a = this;
         a.currentEventIndex = 0 == a.currentEventIndex ? 0 : a.currentEventIndex - 1, a.scrollToIndex(a.currentEventIndex);
