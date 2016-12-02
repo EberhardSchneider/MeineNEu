@@ -11,114 +11,7 @@
 		} 
 	},
 	
-	"1":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"13 Nov 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
 	
-	"2":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"22 Nov 2015 15:00:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"3":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"24 Nov 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"4":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"27 Nov 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"5":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"01 Dec 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"6":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"16 Dec 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"7":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"17 Dec 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"8":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"29 Dec 2015 19:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
-
-	"9":{ 
-	"title": 			"Don Carlos",
-	"komponist": 		"Friedrich Schiller",
-	"ort":				"Theater am Domhof, Osnabrück",
-	"datum":			"10 Jan 2016 18:30:00 GMT+0100",
-	"besetzung":		{
-		"Regie":	"Alexander Charim",
-		"Bühne":	"Ivan Bazak",
-		"Musik":	"Eberhard Schneider"
-		} 
-	},
 
 	"10":{ 
 	"title": 			"Don Carlos",
@@ -323,6 +216,161 @@
 			"Bühne/Kostüm":	"Aurel Lenfert",
 			"Musik":				"Eberhard Schneider"
 		}
+	},
+
+	"27": {
+		"title":			"Das Lächeln einer Sommernacht",
+		"komponist":	"Ingmar Bergman",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"06 Nov 2016 19:30:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Ramin Anaraki",
+			"Bühne/Kostüm":	"Dominik Steinmann",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"28": {
+		"title":			"Das Lächeln einer Sommernacht",
+		"komponist":	"Ingmar Bergman",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"01 Dec 2016 19:30:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Ramin Anaraki",
+			"Bühne/Kostüm":	"Dominik Steinmann",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"27": {
+		"title":			"Das Lächeln einer Sommernacht",
+		"komponist":	"Ingmar Bergman",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"08 Jan 2017 15:00:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Ramin Anaraki",
+			"Bühne/Kostüm":	"Dominik Steinmann",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"28": {
+		"title":			"Das Lächeln einer Sommernacht",
+		"komponist":	"Ingmar Bergman",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"13 Jan 2017 19:30:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Ramin Anaraki",
+			"Bühne/Kostüm":	"Dominik Steinmann",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"29": {
+		"title":			"Das Lächeln einer Sommernacht",
+		"komponist":	"Ingmar Bergman",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"15 Jan 2017 19:30:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Ramin Anaraki",
+			"Bühne/Kostüm":	"Dominik Steinmann",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"30": {
+		"title":			"Robin Hood  (PREMIERE)",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"27 Nov 2016 16:00:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"31": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"04 Dec 2016 14:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"32": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"04 Dec 2016 16:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"33": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"11 Dec 2016 14:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"34": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"11 Dec 2016 16:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"35": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"26 Dec 2016 11:00 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"36": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"01 Jan 2017 14:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
+	},
+
+	"37": {
+		"title":			"Robin Hood",
+		"komponist":	"Werner/Senf",
+		"ort":				"Theater am Domhof, Osnabrück",
+		"datum":			"01 Jan 2017 16:30 GMT+0100",
+		"besetzung":		{
+			"Regie":				"Anna Werner",
+			"Bühne/Kostüm":	"Margrit Flagner",
+			"Musik":				"Eberhard Schneider"
+		}
 	}
-	
 }

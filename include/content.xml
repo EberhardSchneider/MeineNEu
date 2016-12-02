@@ -6,8 +6,11 @@
 		
 			<title>Aktuelles</title>
 			<HTML><![CDATA[
-				<p>In der Spielzeit 2015/16 komponiert Eberhard Schneider die Musik für Schillers <a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1123" class="stueck">Don Carlos</a> (Regie: Alexander Charim) und übernimmt die musikalische Leitung für <a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1082" class="stueck">Das Gespenst von Canterville</a> am Theater Osnabrück.</p>
-			<iframe src="https://player.vimeo.com/video/145372559" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<p><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?stid=159" class="stueck">Das Lächeln einer Sommernacht</a> <br>Regie: Ramin Anaraki<br>Bühne: Domink Steinmann<br>Kostüme: Linda Schnabel<br>Musik: Eberhard Schneider<br>Premiere 6.11.2016</p>
+				<P><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?stid=162" class="stueck">Robin Hood</a><br>Regie: Anna Werner<br>Bühne/Kostüm: Margrit Flagner<br>Komposition/Einstudierung: Eberhard Schneider<br>Premiere 27.11.2016</p>
+				
+				<p>Im Februar 2017 steht wieder eine Zusammenarbeit mit Alexander Charim und Ivan Bazak an: <a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?stid=166" class="stueck">Dantons Tod</a> im <i>Emma-Theater</i>.
+			
 		
 		
 			
@@ -24,6 +27,10 @@
 			<HTML><![CDATA[
 				<div class="html"><table>
 			<colgroup><col width="40%"><col width="35%"><col width="25%"></colgroup>
+
+			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?stid=162" class="stueck">Robin Hood</a></td><td>Komposition, Arrangement</td><td class="spalte3">November 2016</td></tr>
+
+			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?stid=159" class="stueck">Das Lächeln einer Sommernacht</a></td><td>Komposition, Sounddesign</td><td class="spalte3">Oktober 2016</td></tr>
 	
 			
 			<tr><td><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1123" class="stueck">Don Carlos</a></td><td>Komposition, Sounddesign</td><td class="spalte3">November 2015</td></tr>
@@ -84,22 +91,33 @@
 	<termine>
 		<title>Termine</title>
 		
-		<HTML><![CDATA[
-		<a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1123" class="stueck link">Don Carlos</a><a href="http://www.theater-osnabrueck.de/spielplan/spielplandetail.html?=&stid=1082" class="stueck link">Das Gespenst von Canterville</a>
-		]]>	
-			</HTML>
+		
 		<calendar/><timeline/>
 	</termine>
 	<media>
 		
 			<title>Audio</title>
-			<!-- <p>Musikalische Leitung. Osnabrück 2014/15</p> -->
-			<audioplayer/>
-			title>
+			<HTML><![CDATA[
+			<p>
+				Der gute Mensch von Sezuan Studie 1<br>
+				<audio src="audio/sezuan1.mp3" controls></audio><br>
+			</p>
+			<p>
+				Der gute Mensch von Sezuan  Studie 2<br>
+				<audio src="audio/sezuan2.mp3" controls></audio><br>
+			</p>
+				]]>	
+			</HTML>
+			
+			
 			<HTML><![CDATA[
 				<h1>Video</h1>
+				<iframe src="https://player.vimeo.com/video/145372559" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p><a href="https://vimeo.com/145372559">Don Carlos - Theater Osnabr&uuml;ck</a> from <a href="https://vimeo.com/theaterosna">Theater Osnabrueck</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 			<iframe src="https://player.vimeo.com/video/123936096" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
 			<iframe src="https://player.vimeo.com/video/78266314" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+			<iframe src="https://player.vimeo.com/video/187150237" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p><a href="https://vimeo.com/187150237">DAS L&Auml;CHELN EINER SOMMERNACHT &ndash; Theater Osnabr&uuml;ck</a> from <a href="https://vimeo.com/theaterosna">Theater Osnabrueck</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 		]]>	
 			</HTML>	
 		
